@@ -4,14 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>비개발자 공무원의 AI 실무 페어 프로그래밍 실전기 | 스크롤리텔링</title>
-  <!-- Google Fonts & Tailwind CDN -->
+  <!-- Tailwind CDN & Pretendard Font -->
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
   <style>
     * { font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif; }
     html { scroll-behavior: smooth; }
     
-    /* 스크롤바 미니멀화 */
     ::-webkit-scrollbar { width: 6px; }
     ::-webkit-scrollbar-track { background: #0f1412; }
     ::-webkit-scrollbar-thumb { background: #26332e; border-radius: 3px; }
@@ -25,11 +24,10 @@
       transform: translateY(0) scale(1);
     }
     .step-card.inactive {
-      opacity: 0.25;
+      opacity: 0.22;
       transform: translateY(20px) scale(0.97);
     }
 
-    /* 캔버스 화면 전환 애니메이션 */
     .canvas-panel {
       transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
     }
@@ -47,39 +45,49 @@
       position: relative;
     }
 
-    /* 강조 글래스 이펙트 */
     .glass-box {
-      background: rgba(18, 24, 21, 0.75);
+      background: rgba(18, 24, 21, 0.8);
       backdrop-filter: blur(16px);
       border: 1px solid rgba(255, 255, 255, 0.08);
     }
-    .glass-box-highlight {
-      background: rgba(8, 122, 91, 0.1);
-      border: 1px solid rgba(8, 122, 91, 0.4);
+    .badge-planning {
+      background: rgba(16, 185, 129, 0.15);
+      color: #34d399;
+      border: 1px solid rgba(16, 185, 129, 0.35);
+    }
+    .badge-dev {
+      background: rgba(59, 130, 246, 0.15);
+      color: #60a5fa;
+      border: 1px solid rgba(59, 130, 246, 0.35);
+    }
+    .badge-ops {
+      background: rgba(245, 158, 11, 0.15);
+      color: #fbbf24;
+      border: 1px solid rgba(245, 158, 11, 0.35);
     }
   </style>
 </head>
 <body class="bg-[#0b0f0e] text-[#e1e6e3] antialiased selection:bg-[#087a5b] selection:text-white">
 
   <!-- 1. 상단 글로벌 고정 헤더 & 프로그레스 바 -->
-  <header class="fixed top-0 left-0 right-0 z-50 h-16 bg-[#0b0f0e]/85 backdrop-blur-md border-b border-white/10 px-6 sm:px-12 flex items-center justify-between">
+  <header class="fixed top-0 left-0 right-0 z-50 h-16 bg-[#0b0f0e]/90 backdrop-blur-md border-b border-white/10 px-6 sm:px-12 flex items-center justify-between">
     <div class="flex items-center gap-3">
       <span class="w-8 h-8 rounded-lg bg-[#087a5b] text-white font-extrabold flex items-center justify-center text-sm shadow-lg shadow-[#087a5b]/30">
         AI
       </span>
       <div>
         <h1 class="text-sm font-bold text-white tracking-tight">AI 러닝크루 2기 특별 교육 세션</h1>
-        <p class="text-[11px] text-[#78c3a9]">비개발자 공무원의 AI 실전 페어 프로그래밍 워크플로우</p>
+        <p class="text-[11px] text-[#78c3a9]">기획부터 실전 런칭까지 · 비개발자 공무원의 AI 페어 프로그래밍</p>
       </div>
     </div>
 
     <!-- 스텝 인디케이터 배너 -->
     <div class="hidden md:flex items-center gap-2">
       <span id="step-badge" class="px-2.5 py-1 rounded-full bg-[#087a5b]/20 text-[#78c3a9] border border-[#087a5b]/40 text-xs font-bold">
-        프롤로그
+        STEP 01
       </span>
       <span id="step-title-nav" class="text-xs text-white/70 font-medium">
-        단톡방을 넘어선 독립 플랫폼으로
+        카톡 단톡방의 한계와 문제 정의
       </span>
     </div>
 
@@ -99,104 +107,170 @@
 
   <!-- 2. 인트로 히어로 섹션 -->
   <section class="min-h-screen pt-32 pb-20 px-6 max-w-5xl mx-auto flex flex-col justify-center items-center text-center">
-    <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#087a5b]/15 border border-[#087a5b]/30 text-[#78c3a9] text-xs font-bold uppercase tracking-wider mb-6 animate-pulse">
-      Case Study · Dong-gu AI Learning Crew 2nd
+    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#087a5b]/15 border border-[#087a5b]/30 text-[#78c3a9] text-xs font-bold uppercase tracking-wider mb-6 animate-pulse">
+      From Ideation to Production · Complete Roadmap
     </div>
     <h2 class="text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-[1.15] mb-6">
-      "코딩 몰라도 됩니다.<br>
-      <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#78c3a9] via-[#087a5b] to-emerald-400">
-        질문과 통제권
-      </span>만 쥐고 계세요."
+      "코딩은 AI가 합니다.<br>
+      <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#78c3a9] via-emerald-400 to-teal-200">
+        진짜 핵심은 '기획'과 '통제'
+      </span>입니다."
     </h2>
     <p class="text-base sm:text-xl text-[#94a19c] max-w-2xl leading-relaxed mb-10">
       동구청 크루원들이 매일 쓸 웹서비스를 만드는 과정에서,<br class="hidden sm:block">
-      현업 기획자가 AI 에이전트에게 <strong>실제로 어떤 말(프롬프트)을 던지고 어떻게 바로잡았는지</strong> 생생한 6단계 실무 워크플로우를 공개합니다.
+      <strong>어떤 문제를 풀기 위해 기획했고, AI에게 어떤 원칙을 쥐어주었는지</strong><br class="hidden sm:block">
+      처음부터 끝까지 8단계 실전 워크플로우를 그대로 공개합니다.
     </p>
 
-    <!-- 핵심 메시지 카드 3개 -->
+    <!-- 3대 핵심 챕터 미리보기 -->
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 w-full max-w-4xl text-left">
-      <div class="glass-box p-5 rounded-2xl">
-        <div class="text-2xl mb-2">✂️</div>
-        <div class="text-xs font-bold text-[#78c3a9] uppercase mb-1">Rule 01. 과감한 제거</div>
-        <div class="text-sm font-bold text-white mb-1">불필요한 것은 쳐낸다</div>
-        <p class="text-xs text-[#828f8a]">군더더기 기능을 뺄수록 동료들이 매일 쓰는 명품 툴이 됩니다.</p>
+      <div class="glass-box p-5 rounded-2xl border-l-4 border-emerald-500">
+        <div class="text-xs font-bold text-emerald-400 uppercase mb-1">PART 1. 기획의 정점</div>
+        <div class="text-sm font-bold text-white mb-1">문제 정의 & 헌법(AGENTS.md)</div>
+        <p class="text-xs text-[#828f8a]">단톡방의 고통을 분석하고, AI가 벗어나지 못하도록 규칙을 세웁니다.</p>
       </div>
-      <div class="glass-box p-5 rounded-2xl">
-        <div class="text-2xl mb-2">📸</div>
-        <div class="text-xs font-bold text-[#78c3a9] uppercase mb-1">Rule 02. 스크린샷 피드백</div>
-        <div class="text-sm font-bold text-white mb-1">말보다 캡처 한 장 투척</div>
-        <p class="text-xs text-[#828f8a]">전문 개발 용어 없이 화면 사진 하나로 버그의 멱살을 잡습니다.</p>
+      <div class="glass-box p-5 rounded-2xl border-l-4 border-blue-500">
+        <div class="text-xs font-bold text-blue-400 uppercase mb-1">PART 2. 구현 & 피드백</div>
+        <div class="text-sm font-bold text-white mb-1">과감한 삭제 & 캡처 1장</div>
+        <p class="text-xs text-[#828f8a]">사내 코드를 재활용하고, 화면 캡처 한 장으로 버그를 진압합니다.</p>
       </div>
-      <div class="glass-box p-5 rounded-2xl">
-        <div class="text-2xl mb-2">🏛️</div>
-        <div class="text-xs font-bold text-[#78c3a9] uppercase mb-1">Rule 03. 현업 관점 되묻기</div>
-        <div class="text-sm font-bold text-white mb-1">"관리자 입장에선 어때?"</div>
-        <p class="text-xs text-[#828f8a]">출장 면제, 회비 장부, 공휴일 등 실무 엣지케이스를 선제 방어합니다.</p>
+      <div class="glass-box p-5 rounded-2xl border-l-4 border-amber-500">
+        <div class="text-xs font-bold text-amber-400 uppercase mb-1">PART 3. 실무 런칭</div>
+        <div class="text-sm font-bold text-white mb-1">관리자 엣지케이스 & 8만원</div>
+        <p class="text-xs text-[#828f8a]">총무 관점에서 터질 문제를 선제 방어하고 실제 명단으로 런칭합니다.</p>
       </div>
     </div>
 
     <!-- 스크롤 안내 -->
     <div class="mt-14 flex flex-col items-center gap-2 text-xs text-[#717e79]">
-      <span>아래로 스크롤하여 실전 사례 시작하기</span>
+      <span>스크롤하여 1단계 [기획]부터 살펴보기</span>
       <span class="animate-bounce text-base">↓</span>
     </div>
   </section>
 
-  <!-- 3. 메인 스크롤리텔링 섹션 (좌: 스토리텔링 내러티브 / 우: 고정 반응형 라이브 캔버스) -->
+  <!-- 3. 메인 스크롤리텔링 섹션 -->
   <main class="relative max-w-7xl mx-auto px-4 sm:px-8 pb-32">
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
       
-      <!-- [좌측 5칸] 스크롤하며 읽는 스토리 단계들 -->
+      <!-- [좌측 5칸] 스토리 내러티브 -->
       <div class="lg:col-span-5 space-y-44 pt-10 pb-40">
         
-        <!-- STEP 1 -->
+        <!-- STEP 1: 기획 - 문제 정의 -->
         <article class="step-card active" data-step="1">
-          <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-[#087a5b]/20 text-[#78c3a9] text-xs font-bold mb-3">
-            STEP 01 · 본질에 집중하기
+          <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-md badge-planning text-xs font-bold mb-3">
+            기획 01 · 문제 정의 (Why?)
+          </div>
+          <h3 class="text-2xl sm:text-3xl font-bold text-white tracking-tight leading-snug mb-4">
+            "카카오톡 단톡방 인증은 왜 실패하는가?"
+          </h3>
+          <div class="bg-[#141b18] border-l-4 border-emerald-500 p-4 rounded-r-xl text-xs sm:text-sm text-[#c8d1cd] leading-relaxed mb-4">
+            <strong class="text-white block mb-1">🎯 기획자의 문제 의식:</strong>
+            "단톡방에 인증 캡처 사진이 쏟아지면 좋은 프롬프트가 다 묻히고, 내 업무에 재활용할 수도 없다. 게다가 총무는 매일 밤 엑셀 켜놓고 누가 냈는지 눈알 빠지게 체크해야 한다."
+          </div>
+          <p class="text-xs sm:text-sm text-[#94a19c] leading-relaxed mb-4">
+            대부분의 프로젝트는 <strong>"무엇을 만들까?"</strong>부터 시작해서 망합니다. 
+            기획자는 <strong>"지금 무엇이 가장 고통스러운가?"</strong>를 먼저 정의해야 합니다. 
+            우리의 목표는 단톡방을 돕는 보조 도구가 아니라, <strong>카톡 인증 자체를 완전히 없애버리는 것</strong>이었습니다.
+          </p>
+          <div class="p-3 rounded-xl bg-white/5 border border-white/10 text-[11px] text-[#78c3a9] flex items-center gap-2">
+            <span>💡 <strong>기획 포인트:</strong> 기술보다 중요한 것은 '풀고자 하는 고통의 명확한 정의'입니다.</span>
+          </div>
+        </article>
+
+        <!-- STEP 2: 기획 - 3대 핵심 원칙 -->
+        <article class="step-card inactive" data-step="2">
+          <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-md badge-planning text-xs font-bold mb-3">
+            기획 02 · 3대 사용자 경험(UX) 원칙 수립
+          </div>
+          <h3 class="text-2xl sm:text-3xl font-bold text-white tracking-tight leading-snug mb-4">
+            "3초 컷 무마찰 인증 & PC 데스크톱 최우선"
+          </h3>
+          <div class="bg-[#141b18] border-l-4 border-emerald-500 p-4 rounded-r-xl text-xs sm:text-sm text-[#c8d1cd] leading-relaxed mb-4">
+            <strong class="text-white block mb-1">📐 기획자가 세운 3대 불변의 원칙:</strong>
+            1. <strong>3초 컷 무마찰 (Zero Friction):</strong> 복잡한 사진 업로드 X, Share 링크 붙여넣기만 하면 AI 도구 자동 감지 후 1초 완료<br>
+            2. <strong>데스크톱 와이드 (Desktop-First):</strong> 듀얼 모니터 PC에서 일하는 공무원을 위한 1200~1920px 화면<br>
+            3. <strong>지식 자산화 (Knowledge Hub):</strong> 동료 프롬프트 원클릭 복사 및 실무 즉시 적용
+          </div>
+          <p class="text-xs sm:text-sm text-[#94a19c] leading-relaxed mb-4">
+            인증 절차가 10초만 넘어가도 공무원들은 참여를 포기합니다. 
+            <strong>"복사해서 붙여넣으면 끝난다"</strong>는 절대적인 편리함을 기획의 1순위로 못 박았습니다.
+          </p>
+          <div class="p-3 rounded-xl bg-white/5 border border-white/10 text-[11px] text-[#78c3a9] flex items-center gap-2">
+            <span>💡 <strong>기획 포인트:</strong> 사용자가 참여할 수밖에 없는 '초저항(Zero Friction)' 환경을 설계하세요.</span>
+          </div>
+        </article>
+
+        <!-- STEP 3: 기획 - AGENTS.md 헌법 수립 -->
+        <article class="step-card inactive" data-step="3">
+          <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-md badge-planning text-xs font-bold mb-3">
+            기획 03 · AI를 통제하는 헌법 (AGENTS.md)
+          </div>
+          <h3 class="text-2xl sm:text-3xl font-bold text-white tracking-tight leading-snug mb-4">
+            "AI가 헛소리 못 하게 규칙 문서를 먼저 쥐어줘라"
+          </h3>
+          <div class="bg-[#141b18] border-l-4 border-emerald-500 p-4 rounded-r-xl text-xs sm:text-sm text-[#c8d1cd] leading-relaxed mb-4">
+            <strong class="text-white block mb-1">📜 AGENTS.md (에이전트 행동 지침서):</strong>
+            - <strong>비전 통제:</strong> 카카오톡 단톡방 완전 대체 및 독립형 지식 허브 지향<br>
+            - <strong>UI 통제:</strong> 과한 섀도우 금지, 1200px 와이드 데스크톱 우선<br>
+            - <strong>품질 통제:</strong> 코드 수정 후 반드시 `npm run build` 자체 검증 후 보고
+          </div>
+          <p class="text-xs sm:text-sm text-[#94a19c] leading-relaxed mb-4">
+            AI에게 매번 긴 설명을 반복하면 지치고 AI도 기억을 잃어버립니다. 
+            프로젝트 최상단에 <strong>`AGENTS.md`라는 행동 규범 파일</strong>을 박아두면, 
+            AI는 모든 질문과 코드 작성 시 이 규칙을 최우선 법률령으로 복종하게 됩니다.
+          </p>
+          <div class="p-3 rounded-xl bg-white/5 border border-white/10 text-[11px] text-[#78c3a9] flex items-center gap-2">
+            <span>💡 <strong>기획 포인트:</strong> AI에게 일 시키기 전, '프로젝트 규칙 문서'를 먼저 작성하는 것이 일류 기획자입니다.</span>
+          </div>
+        </article>
+
+        <!-- STEP 4: 구현 - 과감한 쳐내기 -->
+        <article class="step-card inactive" data-step="4">
+          <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-md badge-dev text-xs font-bold mb-3">
+            구현 01 · 과감한 쳐내기 (Focus & Cut)
           </div>
           <h3 class="text-2xl sm:text-3xl font-bold text-white tracking-tight leading-snug mb-4">
             "드롭다운 기능은 왜 있어야 될까? 단일화해."
           </h3>
-          <div class="bg-[#141b18] border-l-4 border-[#087a5b] p-4 rounded-r-xl text-xs sm:text-sm text-[#c8d1cd] leading-relaxed mb-4">
+          <div class="bg-[#141b18] border-l-4 border-blue-500 p-4 rounded-r-xl text-xs sm:text-sm text-[#c8d1cd] leading-relaxed mb-4">
             <strong class="text-white block mb-1">🗣️ 실제 지시 프롬프트:</strong>
             "드롭다운 기능은 왜 있어야 될까? 단일화해. 헤더를 꾸미지 말고 구조적으로 분리해라. 1px 라인만 쓰고 그림자는 빼."
           </div>
           <p class="text-xs sm:text-sm text-[#94a19c] leading-relaxed mb-4">
-            AI에게 개발을 맡기면 자꾸 기능과 화려한 장식을 과하게 넣으려 합니다. 
-            기획자가 <strong>"이거 우리 크루원들이 진짜 써? 빼!"</strong>라고 제어해야 
-            오래 봐도 눈이 피로하지 않은 진정한 업무용 SaaS가 탄생합니다.
+            개발자가 편하자고 넣어둔 15명 전환 스위처와 과도한 입체 그림자를 기획자가 단칼에 잘라냈습니다. 
+            <strong>군더더기 기능을 뺄수록 동료들이 오래 켜두어도 피로하지 않은 단정한 명품 툴</strong>이 됩니다.
           </p>
           <div class="p-3 rounded-xl bg-white/5 border border-white/10 text-[11px] text-[#78c3a9] flex items-center gap-2">
-            <span>💡 <strong>실습 포인트:</strong> AI의 과잉 친절을 쳐내고 단순함을 지켜내는 것이 기획자의 첫 번째 역할입니다.</span>
+            <span>💡 <strong>실습 포인트:</strong> "이 기능 진짜 필요해?"라고 끊임없이 의심하고 쳐내세요.</span>
           </div>
         </article>
 
-        <!-- STEP 2 -->
-        <article class="step-card inactive" data-step="2">
-          <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-[#087a5b]/20 text-[#78c3a9] text-xs font-bold mb-3">
-            STEP 02 · 사내 기존 자산 활용
+        <!-- STEP 5: 확장 - 사내 기존 자산 재활용 -->
+        <article class="step-card inactive" data-step="5">
+          <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-md badge-dev text-xs font-bold mb-3">
+            확장 02 · 사내 기존 자산(코드) 재활용
           </div>
           <h3 class="text-2xl sm:text-3xl font-bold text-white tracking-tight leading-snug mb-4">
             "공모전 폴더 참고해서 이미지 어떻게 올렸는지 확인해봐"
           </h3>
-          <div class="bg-[#141b18] border-l-4 border-[#087a5b] p-4 rounded-r-xl text-xs sm:text-sm text-[#c8d1cd] leading-relaxed mb-4">
+          <div class="bg-[#141b18] border-l-4 border-blue-500 p-4 rounded-r-xl text-xs sm:text-sm text-[#c8d1cd] leading-relaxed mb-4">
             <strong class="text-white block mb-1">🗣️ 실제 지시 프롬프트:</strong>
-            "프롬프트뿐만 아니라 생성한 그림, HTML도 전시했으면 좋겠는데 가능해? D:\work\동구_공모전\app 이 폴더 참고해서 이미지 어떻게 올렸는지 확인해볼래?"
+            "프롬프트뿐만 아니라 생성한 그림, HTML도 전시했으면 좋겠어. D:\work\동구_공모전\app 이 폴더 참고해서 이미지 어떻게 올렸는지 확인해볼래?"
           </div>
           <p class="text-xs sm:text-sm text-[#94a19c] leading-relaxed mb-4">
-            맨땅에서 "이미지 전시 기능 만들어줘"라고 하면 AI는 엉뚱한 라이브러리를 끌고 옵니다.
-            <strong>사내에 이미 성공적으로 구축된 다른 폴더 경로</strong>를 레퍼런스로 딱 지정해주면, 
-            AI가 그 코드를 스스로 열람하여 <strong>스토리지 업로드 방식과 모달 UI를 10초 만에 완벽 복제</strong>합니다.
+            새로운 기능을 만들 때 AI에게 막연히 "업로드 만들어줘" 하면 엉뚱한 기술을 씁니다. 
+            구청 안에 이미 잘 만들어진 <strong>공모전 프로젝트 경로</strong>를 던져주자, 
+            <strong>검증된 이미지 스토리지와 모달 UI를 10초 만에 완벽히 흡수</strong>했습니다.
           </p>
           <div class="p-3 rounded-xl bg-white/5 border border-white/10 text-[11px] text-[#78c3a9] flex items-center gap-2">
-            <span>💡 <strong>실습 포인트:</strong> 이미 잘 만들어진 파일이나 사내 프로젝트 경로를 AI에게 레퍼런스로 제시하세요.</span>
+            <span>💡 <strong>실습 포인트:</strong> 맨땅에 헤딩하지 말고, 사내에 이미 존재하는 레퍼런스 폴더를 AI에게 가리키세요.</span>
           </div>
         </article>
 
-        <!-- STEP 3 -->
-        <article class="step-card inactive" data-step="3">
-          <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-[#087a5b]/20 text-[#78c3a9] text-xs font-bold mb-3">
-            STEP 03 · 캡처 1장의 시각적 피드백
+        <!-- STEP 6: 디버깅 - 스크린샷 1장 피드백 -->
+        <article class="step-card inactive" data-step="6">
+          <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-md badge-dev text-xs font-bold mb-3">
+            디버깅 03 · 말보다 빠른 캡처 1장 투척
           </div>
           <h3 class="text-2xl sm:text-3xl font-bold text-white tracking-tight leading-snug mb-4">
             "이게 뭐야? 모달이 내부에 파묻혀 있잖아. 재진단해!"
@@ -206,85 +280,62 @@
             "이게 뭐야 상세 모달로 열려야 하는거 아니야? (화면 캡처 첨부) 아니 모달이 내부에 파묻혀있잖아. 재점검 해봐 재진단!"
           </div>
           <p class="text-xs sm:text-sm text-[#94a19c] leading-relaxed mb-4">
-            웹 개발에서 가장 골치 아픈 <strong>CSS 포지션 갇힘 버그(Containing Block Trap)</strong>로 모달 상단이 잘려나갔습니다.
-            기획자는 복잡한 CSS를 알 필요가 없습니다. 
-            <strong>이상하게 나온 화면을 캡처해서 던지며 "파묻혔잖아!"라고 질타</strong>하자, AI가 스스로 React Portal을 적용해 화면 전체를 덮는 웅장한 모달로 치료했습니다.
+            모달 상단이 화면 밖으로 잘리는 복잡한 CSS 버그가 터졌습니다. 
+            기획자는 기술 용어를 쓸 필요가 없습니다. 
+            <strong>화면 캡처 한 장을 던지며 "파묻혔잖아!"라고 지적</strong>하자, AI가 부모 박스 갇힘 현상을 알아채고 React Portal로 화면 전체를 장악하게 고쳐냈습니다.
           </p>
           <div class="p-3 rounded-xl bg-white/5 border border-white/10 text-[11px] text-[#78c3a9] flex items-center gap-2">
-            <span>💡 <strong>실습 포인트:</strong> 말로 길게 설명하지 마세요. 화면 캡처 한 장이 백 마디 개발 용어보다 정확합니다.</span>
+            <span>💡 <strong>실습 포인트:</strong> 에러 설명하려 애쓰지 마세요. 스크린샷 1장이 천 마디 말보다 빠릅니다.</span>
           </div>
         </article>
 
-        <!-- STEP 4 -->
-        <article class="step-card inactive" data-step="4">
-          <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-[#087a5b]/20 text-[#78c3a9] text-xs font-bold mb-3">
-            STEP 04 · 사용자 경험(UX) 통제권
+        <!-- STEP 7: UX 고도화 - 클릭 통제권 -->
+        <article class="step-card inactive" data-step="7">
+          <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-md badge-ops text-xs font-bold mb-3">
+            UX 고도화 04 · 사용자 주도권 확립
           </div>
           <h3 class="text-2xl sm:text-3xl font-bold text-white tracking-tight leading-snug mb-4">
-            "버튼 말고 행을 눌러도 튕기는데 이게 맞아? 특정 버튼을 눌러야지."
+            "버튼 말고 행을 눌러도 튕기는데 이게 맞아? 버튼을 눌러야지."
           </h3>
-          <div class="bg-[#141b18] border-l-4 border-[#087a5b] p-4 rounded-r-xl text-xs sm:text-sm text-[#c8d1cd] leading-relaxed mb-4">
+          <div class="bg-[#141b18] border-l-4 border-amber-500 p-4 rounded-r-xl text-xs sm:text-sm text-[#c8d1cd] leading-relaxed mb-4">
             <strong class="text-white block mb-1">🗣️ 실제 지시 프롬프트:</strong>
-            "지금 아카이브에서 마우스 클릭하면 외부 링크로 연결되는 부분이 뭐뭐있어? 버튼 말고 행 전체를 눌러도 이동하는데 이게 맞아? 특정 버튼을 눌러야 이동시켜야지."
+            "아카이브에서 마우스 클릭하면 외부 링크로 연결되는 부분이 뭐뭐있어? 버튼 말고 행 전체를 눌러도 이동하는데 이게 맞아? 특정 버튼을 눌러야 이동시켜야지."
           </div>
           <p class="text-xs sm:text-sm text-[#94a19c] leading-relaxed mb-4">
-            내용을 보려고 행을 눌렀는데 갑자기 ChatGPT 사이트로 튕겨나가면 사용자는 당황합니다.
-            <strong>"행 클릭 = 우리 서비스 내부 모달"</strong>, 
-            <strong>"`[ ↗ ]` 버튼 클릭 = 외부 사이트 새 탭"</strong>으로 
-            명확히 분리 지시하여 사용자에게 100% 심리적 안정감을 부여했습니다.
+            텍스트를 복사하려 행을 눌렀는데 갑자기 ChatGPT 사이트로 튕겨나가는 나쁜 UX를 날카롭게 잡아냈습니다. 
+            <strong>"행 클릭 = 내부 상세 모달"</strong> vs <strong>"`[ ↗ ]` 버튼 클릭 = 외부 사이트 이동"</strong>으로 명확히 분리하여 사용자 통제권을 완성했습니다.
           </p>
           <div class="p-3 rounded-xl bg-white/5 border border-white/10 text-[11px] text-[#78c3a9] flex items-center gap-2">
-            <span>💡 <strong>실습 포인트:</strong> "사용자가 의도하지 않은 화면 이동"은 나쁜 UX입니다. 클릭 규칙을 분명히 지정하세요.</span>
+            <span>💡 <strong>실습 포인트:</strong> 사용자가 의도하지 않은 강제 화면 이동을 원천 차단하세요.</span>
           </div>
         </article>
 
-        <!-- STEP 5 -->
-        <article class="step-card inactive" data-step="5">
-          <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-[#087a5b]/20 text-[#78c3a9] text-xs font-bold mb-3">
-            STEP 05 · 관리자(총무) 관점 역질문
+        <!-- STEP 8: 실무 런칭 - 관리자 관점 & 8만원 수납 -->
+        <article class="step-card inactive" data-step="8">
+          <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-md badge-ops text-xs font-bold mb-3">
+            실전 런칭 05 · 관리자 관점 역질문 & 8만원 실데이터
           </div>
           <h3 class="text-2xl sm:text-3xl font-bold text-white tracking-tight leading-snug mb-4">
-            "관리자 입장에서 부족한 부분 없어?"
+            "관리자 입장에서 부족한 부분 없어? 실데이터 8만원 반영해."
           </h3>
           <div class="bg-[#141b18] border-l-4 border-amber-500 p-4 rounded-r-xl text-xs sm:text-sm text-[#c8d1cd] leading-relaxed mb-4">
             <strong class="text-amber-400 block mb-1">🗣️ 실제 지시 프롬프트:</strong>
-            "관리자 입장에서 부족한 부분 없어?"
+            "관리자 입장에서 부족한 부분 없어? 초기 회비 8만원으로 수정. 김남희 등 8명 입금완료 처리. 이현아 복지정책과로 수정. 깃허브에 올려줘."
           </div>
           <p class="text-xs sm:text-sm text-[#94a19c] leading-relaxed mb-4">
-            이 마법 같은 질문 한마디가 AI를 단순 코더에서 <strong>'동구청 총무과 실무 운영자'</strong>로 변신시켰습니다.
-            운영 중에 반드시 터질 <strong>4대 엣지 케이스(출장·연차 면제, 회비 엑셀 없는 장부, 공휴일 벌금 제외, 개인정보 블라인드)</strong>를 DB 설계 단계에서 미리 완벽히 세팅했습니다.
+            "관리자 입장에서 부족한 게 뭐지?"라는 역질문으로 <strong>출장 면제, 회비 장부, 공휴일 벌금 제외, 개인정보 블라인드</strong> 4대 방어막을 챙겼습니다. 
+            그리고 가짜 데이터를 지우고 <strong>실제 16명 크루원 명단과 8명 완납(640,000원, 50%) 실데이터</strong>를 주입하여 런칭했습니다.
           </p>
           <div class="p-3 rounded-xl bg-white/5 border border-white/10 text-[11px] text-[#78c3a9] flex items-center gap-2">
-            <span>💡 <strong>실습 포인트:</strong> "현업 운영자 입장에서 빠진 게 뭐야?"라고 AI에게 되물어보세요. 놀라운 해결책을 줍니다.</span>
-          </div>
-        </article>
-
-        <!-- STEP 6 -->
-        <article class="step-card inactive" data-step="6">
-          <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-[#087a5b]/20 text-[#78c3a9] text-xs font-bold mb-3">
-            STEP 06 · 실데이터 전환 & 깃허브 자산화
-          </div>
-          <h3 class="text-2xl sm:text-3xl font-bold text-white tracking-tight leading-snug mb-4">
-            "샘플 지우고 실제 8만원 입금자 8명 반영해. 그리고 깃허브에 올려."
-          </h3>
-          <div class="bg-[#141b18] border-l-4 border-[#087a5b] p-4 rounded-r-xl text-xs sm:text-sm text-[#c8d1cd] leading-relaxed mb-4">
-            <strong class="text-white block mb-1">🗣️ 실제 지시 프롬프트:</strong>
-            "초기 회비 8만원으로 수정해. 김남희, 남수현 등 8명 입금완료 처리. 이현아 복지정책과로 수정. 지금까지 작업한 내역 깃허브에 올려줘."
-          </div>
-          <p class="text-xs sm:text-sm text-[#94a19c] leading-relaxed mb-4">
-            가짜 더미 데이터를 싹 비우고, <strong>실제 16명 크루원 명단과 8명 완납(640,000원, 50%) 현황</strong>을 주입하여 살아있는 운영 시스템으로 전환했습니다.
-            마지막으로 GitHub에 프로젝트 전체를 안전하게 백업하여 공공 디지털 자산으로 확정 지었습니다.
-          </p>
-          <div class="p-3 rounded-xl bg-white/5 border border-white/10 text-[11px] text-[#78c3a9] flex items-center gap-2">
-            <span>💡 <strong>실습 포인트:</strong> 기획 검증이 끝나면 샘플을 과감히 비우고, 실제 데이터로 즉시 라이브 테스트를 진행하세요.</span>
+            <span>💡 <strong>실습 포인트:</strong> "운영자 입장에서 빠진 게 뭐야?"라고 AI에게 되물어보세요. 엣지케이스를 다 찾아냅니다.</span>
           </div>
         </article>
 
       </div>
 
-      <!-- [우측 7칸] 우측 화면에 찰떡같이 붙어서 변신하는 인터랙티브 캔버스 (Sticky) -->
+      <!-- [우측 7칸] 우측 화면에 고정되어 변신하는 라이브 캔버스 (Sticky) -->
       <div class="lg:col-span-7 sticky top-24">
-        <div class="glass-box rounded-3xl p-5 sm:p-7 border border-white/15 shadow-2xl overflow-hidden min-h-[580px] flex flex-col justify-between relative">
+        <div class="glass-box rounded-3xl p-5 sm:p-7 border border-white/15 shadow-2xl overflow-hidden min-h-[590px] flex flex-col justify-between relative">
           
           <!-- 상단 윈도우 컨트롤 도트 -->
           <div class="flex items-center justify-between border-b border-white/10 pb-4 mb-4 shrink-0">
@@ -293,240 +344,252 @@
               <span class="w-3 h-3 rounded-full bg-amber-500/80"></span>
               <span class="w-3 h-3 rounded-full bg-emerald-500/80"></span>
               <span id="canvas-status-label" class="text-xs font-mono text-[#78c3a9] ml-2">
-                STEP 01 // 헤더 위계 단일화 시뮬레이션
+                STEP 01 // 카톡 단톡방 인증의 한계 분석
               </span>
             </div>
-            <span class="text-[11px] text-white/40 font-mono">DG-AI-LearningCrew v2.0</span>
+            <span class="text-[11px] text-white/40 font-mono">DG-AI-LearningCrew</span>
           </div>
 
-          <!-- 라이브 캔버스 패널 모음 (자바스크립트로 data-step과 매칭되어 자동 전환) -->
+          <!-- 라이브 캔버스 패널 8개 -->
           <div class="flex-1 relative flex items-center justify-center">
 
-            <!-- 패널 1: 불필요한 기능 제거 (Before / After) -->
-            <div id="panel-1" class="canvas-panel active-panel w-full space-y-4">
-              <div class="p-4 rounded-xl bg-rose-950/20 border border-rose-500/30">
-                <div class="flex items-center justify-between text-xs text-rose-400 font-bold mb-2">
-                  <span>❌ 수정 전 (과도한 장식과 드롭다운)</span>
-                  <span class="text-[10px] px-2 py-0.5 rounded bg-rose-500/20">피로도 높음</span>
+            <!-- 패널 1: 카톡 단톡방의 한계 (기획 1) -->
+            <div id="panel-1" class="canvas-panel active-panel w-full space-y-3.5">
+              <div class="text-xs font-bold text-rose-400 mb-1">
+                💬 카카오톡 단톡방 인증이 실패할 수밖에 없는 3대 이유
+              </div>
+              <div class="space-y-2">
+                <div class="p-3 rounded-xl bg-rose-950/20 border border-rose-500/30 flex items-start gap-3">
+                  <span class="text-lg">🗑️</span>
+                  <div>
+                    <strong class="text-xs text-white block">1. 지식의 휘발 (대화 묻힘)</strong>
+                    <p class="text-[11px] text-zinc-400">동료가 올린 훌륭한 프롬프트가 대화 몇 번에 위로 쑥 밀려나 영원히 실종됨</p>
+                  </div>
                 </div>
-                <div class="p-3 bg-white/5 rounded-lg border border-white/10 flex items-center justify-between opacity-70">
-                  <div class="flex items-center gap-2">
-                    <span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span>
-                    <span class="text-xs text-white/60">[15명 전환 드롭다운 ▼]</span>
+                <div class="p-3 rounded-xl bg-rose-950/20 border border-rose-500/30 flex items-start gap-3">
+                  <span class="text-lg">😫</span>
+                  <div>
+                    <strong class="text-xs text-white block">2. 총무의 수기 엑셀 노가다</strong>
+                    <p class="text-[11px] text-zinc-400">매일 밤 11시 59분에 총무가 눈알 빠지게 카톡 읽어가며 엑셀에 O, X 치고 벌금 계산</p>
                   </div>
-                  <div class="px-3 py-1 bg-white text-zinc-900 rounded-full text-xs font-bold shadow-lg">
-                    둥둥 떠다니는 플로팅 캡슐 헤더 (그림자 과함)
+                </div>
+                <div class="p-3 rounded-xl bg-rose-950/20 border border-rose-500/30 flex items-start gap-3">
+                  <span class="text-lg">🔒</span>
+                  <div>
+                    <strong class="text-xs text-white block">3. 재활용 불가능한 사진 인증</strong>
+                    <p class="text-[11px] text-zinc-400">사진 캡처만 덜렁 올라와서 프롬프트 텍스트를 내 PC로 복사해 써먹을 수가 없음</p>
                   </div>
+                </div>
+              </div>
+              <div class="p-2.5 rounded-lg bg-[#087a5b]/20 border border-[#087a5b]/40 text-center text-xs text-[#78c3a9] font-bold">
+                🎯 기획 결론: 단톡방을 완전히 없애고 매일 켜두는 "독립형 웹 플랫폼"을 구축한다!
+              </div>
+            </div>
+
+            <!-- 패널 2: 3대 UX 원칙 (기획 2) -->
+            <div id="panel-2" class="canvas-panel hidden-panel w-full space-y-3">
+              <div class="text-xs font-bold text-emerald-400 mb-1">
+                📐 기획자가 수립한 3대 UX 절대 원칙
+              </div>
+              <div class="grid grid-cols-1 gap-2.5">
+                <div class="p-3.5 rounded-xl bg-white/5 border border-white/10 flex items-center justify-between">
+                  <div class="flex items-center gap-3">
+                    <span class="w-8 h-8 rounded-lg bg-[#087a5b]/30 text-[#78c3a9] flex items-center justify-center font-bold text-sm">1</span>
+                    <div>
+                      <div class="text-xs font-bold text-white">3초 컷 무마찰 인증 (Zero Friction)</div>
+                      <div class="text-[11px] text-zinc-400">사진 업로드 X, Ctrl+V 링크 붙여넣기 ➡️ AI 자동 감지 ➡️ 1초 완료</div>
+                    </div>
+                  </div>
+                  <span class="text-xs text-emerald-400 font-mono font-bold">1 Sec</span>
+                </div>
+
+                <div class="p-3.5 rounded-xl bg-white/5 border border-white/10 flex items-center justify-between">
+                  <div class="flex items-center gap-3">
+                    <span class="w-8 h-8 rounded-lg bg-blue-500/20 text-blue-400 flex items-center justify-center font-bold text-sm">2</span>
+                    <div>
+                      <div class="text-xs font-bold text-white">데스크톱 와이드 뷰 (Desktop-First)</div>
+                      <div class="text-[11px] text-zinc-400">듀얼 모니터 PC 업무 환경에 최적화된 1200~1920px 대시보드</div>
+                    </div>
+                  </div>
+                  <span class="text-xs text-blue-400 font-mono font-bold">Wide</span>
+                </div>
+
+                <div class="p-3.5 rounded-xl bg-white/5 border border-white/10 flex items-center justify-between">
+                  <div class="flex items-center gap-3">
+                    <span class="w-8 h-8 rounded-lg bg-purple-500/20 text-purple-400 flex items-center justify-center font-bold text-sm">3</span>
+                    <div>
+                      <div class="text-xs font-bold text-white">업무 재활용 지식 자산화 (Knowledge Hub)</div>
+                      <div class="text-[11px] text-zinc-400">동료의 검증된 프롬프트를 원클릭 복사하여 내 업무에 즉시 적용</div>
+                    </div>
+                  </div>
+                  <span class="text-xs text-purple-400 font-mono font-bold">Asset</span>
+                </div>
+              </div>
+              <p class="text-[11px] text-[#8e9c96] text-center">"공무원의 참여 장벽을 0으로 만드는 것"이 서비스 성공의 핵심 열쇠</p>
+            </div>
+
+            <!-- 패널 3: AGENTS.md 헌법 수립 (기획 3) -->
+            <div id="panel-3" class="canvas-panel hidden-panel w-full space-y-3">
+              <div class="text-xs font-bold text-[#78c3a9] flex items-center justify-between mb-1">
+                <span>📜 AI 행동 지침서: AGENTS.md 원문 발췌</span>
+                <span class="text-[10px] px-2 py-0.5 rounded bg-[#087a5b]/20 font-mono">System Prompt</span>
+              </div>
+              <div class="p-4 rounded-xl bg-zinc-950 border border-zinc-800 text-xs font-mono text-zinc-300 space-y-2 leading-relaxed">
+                <p class="text-emerald-400 font-bold"># 🛡️ Antigravity Agent Rules & Control Guidelines</p>
+                <p><span class="text-zinc-500">1.</span> <strong>비전:</strong> 카카오톡 단톡방 완전 대체 및 독립형 AI 지식 허브 지향</p>
+                <p><span class="text-zinc-500">2.</span> <strong>UI 통제:</strong> 1200px 와이드 데스크톱 기본, 과도한 섀도우 배제</p>
+                <p><span class="text-zinc-500">3.</span> <strong>인증 통제:</strong> "3초 컷" 공식 Share 링크 기반 (Zero Friction)</p>
+                <p><span class="text-zinc-500">4.</span> <strong>품질 통제:</strong> 코드 수정 후 반드시 `npm run build` 자체 검증</p>
+              </div>
+              <div class="p-2.5 bg-emerald-950/20 border border-emerald-500/30 rounded-lg text-center text-xs text-[#78c3a9]">
+                💡 <strong>효과:</strong> AI가 개발 도중 길을 잃거나 이상한 기능을 붙이지 못하도록 강력한 가드레일 작동
+              </div>
+            </div>
+
+            <!-- 패널 4: 과감한 쳐내기 (구현 1) -->
+            <div id="panel-4" class="canvas-panel hidden-panel w-full space-y-3">
+              <div class="p-3 rounded-xl bg-rose-950/20 border border-rose-500/30">
+                <div class="text-xs text-rose-400 font-bold mb-1">❌ 수정 전 (과도한 장식과 드롭다운)</div>
+                <div class="p-2.5 bg-white/5 rounded-lg border border-white/10 flex items-center justify-between opacity-70 text-xs text-white/60">
+                  <span>[15명 전환 드롭다운 ▼]</span>
+                  <span class="bg-white text-zinc-900 px-2 py-0.5 rounded-full font-bold">플로팅 캡슐 헤더</span>
                 </div>
               </div>
 
               <div class="text-center text-xs text-[#78c3a9] font-bold">⬇️ 파트너님의 지시로 1초 만에 개편</div>
 
-              <div class="p-4 rounded-xl bg-emerald-950/20 border border-emerald-500/40">
-                <div class="flex items-center justify-between text-xs text-emerald-400 font-bold mb-2">
-                  <span>✅ 수정 후 (1px 미니멀 화이트 헤더)</span>
-                  <span class="text-[10px] px-2 py-0.5 rounded bg-emerald-500/20 font-mono">Desktop Wide</span>
-                </div>
-                <div class="p-3 bg-white text-zinc-900 rounded-lg border-b border-[#e8ebe9] flex items-center justify-between shadow-xs">
-                  <div class="flex items-center gap-3">
-                    <span class="w-6 h-6 rounded bg-[#087a5b] text-white text-[10px] font-black flex items-center justify-center">RC</span>
-                    <span class="text-xs font-bold text-zinc-900 border-b-2 border-[#087a5b] pb-0.5">홈 · 대시보드</span>
-                    <span class="text-xs text-zinc-500">프롬프트 아카이브</span>
-                  </div>
+              <div class="p-3 rounded-xl bg-emerald-950/20 border border-emerald-500/40">
+                <div class="text-xs text-emerald-400 font-bold mb-1">✅ 수정 후 (1px 미니멀 화이트 헤더)</div>
+                <div class="p-2.5 bg-white text-zinc-900 rounded-lg border-b border-[#e8ebe9] flex items-center justify-between shadow-xs text-xs">
                   <div class="flex items-center gap-2">
-                    <span class="text-xs font-semibold text-zinc-700 bg-zinc-100 px-2.5 py-1 rounded-md">최진웅 총무 / 총무과</span>
+                    <span class="w-5 h-5 rounded bg-[#087a5b] text-white text-[9px] font-black flex items-center justify-center">RC</span>
+                    <span class="font-bold border-b-2 border-[#087a5b] pb-0.5">홈 · 대시보드</span>
                   </div>
+                  <span class="bg-zinc-100 px-2 py-0.5 rounded font-semibold text-zinc-700 text-[11px]">최진웅 총무 / 총무과</span>
                 </div>
               </div>
               <p class="text-[11px] text-[#8e9c96] text-center">불필요한 드롭다운을 삭제하고, 하루 종일 켜두어도 눈이 편안한 구조적 분리 완성</p>
             </div>
 
-            <!-- 패널 2: 사내 자산 활용 (그림 & HTML 위젯) -->
-            <div id="panel-2" class="canvas-panel hidden-panel w-full space-y-3">
+            <!-- 패널 5: 사내 자산 활용 (확장 2) -->
+            <div id="panel-5" class="canvas-panel hidden-panel w-full space-y-3">
               <div class="text-xs font-bold text-[#78c3a9] mb-1">
                 🎨 동구_공모전 코드를 재활용한 3대 산출물 탭
               </div>
               <div class="grid grid-cols-3 gap-2 text-center text-xs">
-                <div class="p-2.5 rounded-lg bg-[#087a5b]/20 border border-[#087a5b] text-[#78c3a9] font-bold">
-                  💬 대화 링크
-                </div>
-                <div class="p-2.5 rounded-lg bg-purple-950/40 border border-purple-500/40 text-purple-300 font-bold">
-                  🎨 그림 전시
-                </div>
-                <div class="p-2.5 rounded-lg bg-blue-950/40 border border-blue-500/40 text-blue-300 font-bold">
-                  ⚡️ HTML 위젯
-                </div>
+                <div class="p-2 rounded-lg bg-[#087a5b]/20 border border-[#087a5b] text-[#78c3a9] font-bold">💬 링크</div>
+                <div class="p-2 rounded-lg bg-purple-950/40 border border-purple-500/40 text-purple-300 font-bold">🎨 그림</div>
+                <div class="p-2 rounded-lg bg-blue-950/40 border border-blue-500/40 text-blue-300 font-bold">⚡️ HTML</div>
               </div>
 
-              <!-- HTML 위젯 시뮬레이터 -->
-              <div class="p-4 rounded-xl bg-white text-zinc-900 shadow-md border border-zinc-200">
-                <div class="text-xs font-extrabold text-[#087a5b] flex items-center justify-between mb-2">
+              <div class="p-3.5 rounded-xl bg-white text-zinc-900 shadow-md border border-zinc-200 text-xs">
+                <div class="font-extrabold text-[#087a5b] flex items-center justify-between mb-1.5">
                   <span>🏛️ 재무과 남수현 주무관의 취득세 간이 계산기</span>
-                  <span class="text-[10px] px-1.5 py-0.5 bg-blue-100 text-blue-700 rounded font-mono">Sandbox isolated</span>
+                  <span class="text-[10px] px-1.5 py-0.2 bg-blue-100 text-blue-700 rounded font-mono">Sandbox</span>
                 </div>
-                <div class="space-y-2 text-xs">
-                  <div class="flex items-center justify-between bg-zinc-50 p-2 rounded border border-zinc-200">
-                    <span class="text-zinc-600">부동산 취득가액:</span>
-                    <span class="font-bold font-mono text-zinc-900">30,000 만원 (3억)</span>
-                  </div>
-                  <div class="p-2.5 bg-[#eaf5f1] rounded text-center font-bold text-[#087a5b]">
-                    예상 취득세: 330 만원 (1.1% 적용)
-                  </div>
+                <div class="p-2 bg-[#eaf5f1] rounded text-center font-bold text-[#087a5b]">
+                  부동산 3억 입력 ➡️ 예상 취득세: 330 만원 실시간 연산
                 </div>
               </div>
-              <p class="text-[11px] text-[#8e9c96] text-center">링크 복사뿐만 아니라 직접 만든 포스터와 웹 계산기까지 지식 자산으로 전시</p>
+              <p class="text-[11px] text-[#8e9c96] text-center">사내 레퍼런스를 지정해주자 단 10초 만에 이미지 업로더와 HTML 샌드박스 완비</p>
             </div>
 
-            <!-- 패널 3: 스크린샷 버그 해결 (React Portal) -->
-            <div id="panel-3" class="canvas-panel hidden-panel w-full space-y-3">
-              <div class="relative p-4 rounded-xl bg-black/60 border border-white/15 overflow-hidden">
-                <!-- 모달 헤더 -->
-                <div class="flex items-center justify-between border-b border-white/10 pb-2.5 mb-3">
-                  <div class="flex items-center gap-2">
-                    <span class="text-[10px] font-extrabold px-2 py-0.5 rounded bg-purple-500/20 text-purple-300">
-                      🎨 IMAGE SHOWCASE
-                    </span>
-                    <span class="text-xs font-bold text-white">2026 동구 초량 불빛 야경 축제 포스터</span>
-                  </div>
-                  <span class="w-6 h-6 rounded-full bg-white/10 text-white flex items-center justify-center text-xs">✕</span>
-                </div>
-
-                <!-- 축제 이미지 프리뷰 -->
-                <div class="h-32 rounded-lg bg-zinc-900 flex items-center justify-center border border-zinc-800 text-xs text-white/50 relative overflow-hidden">
-                  <div class="absolute inset-0 bg-gradient-to-t from-purple-900/40 via-blue-900/20 to-transparent"></div>
-                  <span>🏮 초량 이바구길 불빛 축제 시안 (8K Cinematic)</span>
-                </div>
-
-                <!-- 프롬프트 복사 박스 -->
-                <div class="mt-3 p-2.5 rounded bg-white/5 border border-white/10 flex items-center justify-between text-xs">
-                  <span class="text-zinc-300 truncate max-w-[240px] font-mono text-[11px]">"A modern festival poster capturing..."</span>
-                  <span class="px-2 py-1 rounded bg-[#087a5b] text-white text-[10px] font-bold">📋 복사</span>
-                </div>
-              </div>
-              <div class="p-2.5 bg-emerald-950/30 border border-emerald-500/30 rounded-lg text-center text-xs text-[#78c3a9]">
-                🎉 <strong>React Portal 적용 완료:</strong> 부모 박스에 갇히지 않고 상단 헤더까지 100% 덮는 글로벌 모달로 진화!
-              </div>
-            </div>
-
-            <!-- 패널 4: UX 클릭 분리 -->
-            <div id="panel-4" class="canvas-panel hidden-panel w-full space-y-3">
-              <div class="text-xs font-bold text-white/80 mb-1">
-                🎯 통제권이 분리된 1열 와이드 행 (PromptRow)
-              </div>
-              
-              <!-- 시뮬레이션 행 -->
-              <div class="p-4 rounded-xl bg-white text-zinc-900 border border-zinc-200 shadow-sm space-y-2">
-                <div class="flex items-center justify-between">
-                  <div class="flex items-center gap-2">
-                    <span class="text-xs font-bold text-zinc-900">SSH 서버 접속 실패 로그 원인 분석</span>
-                    <span class="text-[10px] px-1.5 py-0.5 rounded bg-zinc-100 text-zinc-600 font-semibold">ChatGPT</span>
-                  </div>
-                  
-                  <!-- 우측 분리된 전용 버튼 -->
+            <!-- 패널 6: 스크린샷 1장 피드백 (디버깅 3) -->
+            <div id="panel-6" class="canvas-panel hidden-panel w-full space-y-3">
+              <div class="relative p-3.5 rounded-xl bg-black/60 border border-white/15">
+                <div class="flex items-center justify-between border-b border-white/10 pb-2 mb-2 text-xs">
                   <div class="flex items-center gap-1.5">
-                    <span class="px-2 py-1 rounded bg-zinc-100 hover:bg-zinc-200 text-zinc-700 text-[11px] font-bold cursor-pointer border border-zinc-300">
-                      ↗ 대화 원본 열기
-                    </span>
+                    <span class="text-[10px] font-extrabold px-1.5 py-0.2 rounded bg-purple-500/20 text-purple-300">IMAGE</span>
+                    <span class="font-bold text-white truncate max-w-[200px]">2026 동구 초량 불빛 축제</span>
                   </div>
+                  <span class="w-5 h-5 rounded-full bg-white/10 text-white flex items-center justify-center text-xs">✕</span>
                 </div>
-                <p class="text-xs text-zinc-500">서버 auth.log 파일의 반복적인 Failed password 패턴 분석...</p>
-                <div class="flex items-center justify-between text-[11px] pt-2 border-t border-zinc-100 text-zinc-400">
-                  <span>총무과 최진웅 · 2026.09.03</span>
-                  <span class="text-[#087a5b] font-bold">🔥 기발해요 15</span>
+
+                <div class="h-24 rounded bg-zinc-900 flex items-center justify-center border border-zinc-800 text-xs text-white/50">
+                  🏮 초량 이바구길 야경 포스터 시안
+                </div>
+
+                <div class="mt-2 p-2 rounded bg-white/5 border border-white/10 flex items-center justify-between text-xs">
+                  <span class="text-zinc-300 truncate max-w-[200px] font-mono text-[10px]">"A modern festival poster..."</span>
+                  <span class="px-2 py-0.5 rounded bg-[#087a5b] text-white text-[10px] font-bold">복사</span>
                 </div>
               </div>
+              <div class="p-2 bg-emerald-950/30 border border-emerald-500/30 rounded-lg text-center text-xs text-[#78c3a9]">
+                🎉 <strong>React Portal 치료 완료:</strong> 캡처 1장으로 부모 박스 탈출 & 상단 헤더까지 100% 장악
+              </div>
+            </div>
 
-              <!-- 인터랙션 규칙 설명 -->
+            <!-- 패널 7: UX 통제권 (고도화 4) -->
+            <div id="panel-7" class="canvas-panel hidden-panel w-full space-y-3">
+              <div class="p-3.5 rounded-xl bg-white text-zinc-900 border border-zinc-200 shadow-sm text-xs space-y-1.5">
+                <div class="flex items-center justify-between">
+                  <span class="font-bold text-zinc-900">SSH 서버 접속 실패 로그 원인 분석</span>
+                  <span class="px-2 py-0.5 rounded bg-zinc-100 text-zinc-700 font-bold border border-zinc-300 text-[11px]">
+                    ↗ 대화 원본 열기
+                  </span>
+                </div>
+                <p class="text-zinc-500 text-[11px]">서버 auth.log 파일의 반복적인 Failed password 패턴 분석...</p>
+              </div>
+
               <div class="grid grid-cols-2 gap-2 text-xs text-center">
-                <div class="p-2.5 rounded-lg bg-blue-950/30 border border-blue-500/30 text-blue-300">
+                <div class="p-2 rounded-lg bg-blue-950/30 border border-blue-500/30 text-blue-300">
                   <strong>행 본체 클릭 시</strong><br>
                   👉 내부 상세 모달 열기 (안전)
                 </div>
-                <div class="p-2.5 rounded-lg bg-emerald-950/30 border border-emerald-500/30 text-[#78c3a9]">
+                <div class="p-2 rounded-lg bg-emerald-950/30 border border-emerald-500/30 text-[#78c3a9]">
                   <strong>`[ ↗ ]` 버튼 클릭 시</strong><br>
                   👉 ChatGPT 새 탭 이동 (명확)
                 </div>
               </div>
+              <p class="text-[11px] text-[#8e9c96] text-center">예기치 못한 외부 사이트 튕김을 막아 사용자에게 완벽한 통제권 부여</p>
             </div>
 
-            <!-- 패널 5: 관리자(총무) 4대 엣지 케이스 -->
-            <div id="panel-5" class="canvas-panel hidden-panel w-full space-y-2.5">
-              <div class="text-xs font-bold text-amber-400 mb-1">
-                🏛️ 총무님이 수첩과 엑셀을 안 펴도 되는 4대 자동화 방어막
-              </div>
-              <div class="grid grid-cols-2 gap-2 text-xs">
-                <div class="p-3 rounded-xl bg-white/5 border border-white/10">
-                  <div class="font-bold text-white mb-1">🏥 출장·연차 면제</div>
-                  <p class="text-[11px] text-zinc-400">관내 출장으로 미제출 시 벌금 2,000원 자동 면제 승인</p>
-                </div>
-                <div class="p-3 rounded-xl bg-white/5 border border-white/10">
-                  <div class="font-bold text-white mb-1">💰 회비 투명 장부</div>
-                  <p class="text-[11px] text-zinc-400">입금, 환급, 우수자 시상 내역 1원 단위 자동 원장 기록</p>
-                </div>
-                <div class="p-3 rounded-xl bg-white/5 border border-white/10">
-                  <div class="font-bold text-white mb-1">📅 공휴일 자동 제외</div>
-                  <p class="text-[11px] text-zinc-400">추석·개천절 연휴에 억울한 벌금이 나가지 않도록 사전 배제</p>
-                </div>
-                <div class="p-3 rounded-xl bg-white/5 border border-white/10">
-                  <div class="font-bold text-white mb-1">🔒 개인정보 블라인드</div>
-                  <p class="text-[11px] text-zinc-400">민원인 주민번호나 대외비 노출 시 총무 원클릭 숨김</p>
-                </div>
-              </div>
-            </div>
-
-            <!-- 패널 6: 실데이터 8만원 수납 현황 -->
-            <div id="panel-6" class="canvas-panel hidden-panel w-full space-y-3">
-              <!-- 수납 게이지 배너 -->
-              <div class="p-4 rounded-xl bg-[#131c18] border border-[#087a5b]/40 shadow-lg">
-                <div class="flex items-center justify-between text-xs mb-2">
-                  <span class="font-bold text-white">💰 2기 초기 회비(80,000원) 실시간 수납 현황</span>
-                  <span class="font-bold text-[#78c3a9] bg-[#087a5b]/30 px-2 py-0.5 rounded-full">
+            <!-- 패널 8: 관리자 엣지케이스 & 런칭 (실무 5) -->
+            <div id="panel-8" class="canvas-panel hidden-panel w-full space-y-3">
+              <div class="p-3.5 rounded-xl bg-[#131c18] border border-[#087a5b]/40 shadow-lg text-xs">
+                <div class="flex items-center justify-between mb-1.5">
+                  <span class="font-bold text-white">💰 2기 초기 회비(80,000원) 실시간 수납 대장</span>
+                  <span class="font-bold text-[#78c3a9] bg-[#087a5b]/30 px-2 py-0.5 rounded-full text-[11px]">
                     8/16명 완납 (50%)
                   </span>
                 </div>
-                <div class="w-full h-2.5 bg-white/10 rounded-full overflow-hidden mb-2">
+                <div class="w-full h-2 bg-white/10 rounded-full overflow-hidden mb-1.5">
                   <div class="h-full bg-gradient-to-r from-[#087a5b] to-emerald-400 rounded-full" style="width: 50%;"></div>
                 </div>
-                <div class="flex items-center justify-between text-[11px] text-zinc-400 font-mono">
+                <div class="flex items-center justify-between text-[10px] text-zinc-400 font-mono">
                   <span>현재 수납: <strong>640,000원</strong></span>
                   <span>목표: 1,280,000원 (미납 8명)</span>
                 </div>
               </div>
 
-              <!-- 실시간 명단 시뮬레이션 -->
-              <div class="p-3 bg-white text-zinc-900 rounded-xl space-y-1.5 text-xs shadow-sm">
-                <div class="flex items-center justify-between py-1 border-b border-zinc-100 font-bold text-[11px] text-zinc-400">
+              <div class="p-2.5 bg-white text-zinc-900 rounded-xl space-y-1 text-xs shadow-sm">
+                <div class="flex items-center justify-between py-0.5 border-b border-zinc-100 font-bold text-[10px] text-zinc-400">
                   <span>크루원 (16명)</span>
                   <span>회비 납부</span>
-                  <span>출석 잔여금</span>
+                  <span>출석 잔액</span>
                 </div>
                 <div class="flex items-center justify-between py-0.5 font-medium">
                   <span>김남희 (건축과)</span>
-                  <span class="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-1.5 py-0.2 rounded-full">🟢 8만 완납</span>
-                  <span class="font-mono font-bold text-zinc-800">80,000원</span>
+                  <span class="text-[9px] font-bold text-emerald-700 bg-emerald-50 px-1.5 py-0.2 rounded-full">🟢 8만 완납</span>
+                  <span class="font-mono font-bold">80,000원</span>
                 </div>
                 <div class="flex items-center justify-between py-0.5 font-medium">
                   <span>이현아 (복지정책과)</span>
-                  <span class="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-1.5 py-0.2 rounded-full">🟢 8만 완납</span>
-                  <span class="font-mono font-bold text-zinc-800">80,000원</span>
-                </div>
-                <div class="flex items-center justify-between py-0.5 font-medium text-zinc-400">
-                  <span>신봉일 (평생교육과)</span>
-                  <span class="text-[10px] font-medium text-amber-700 bg-amber-50 px-1.5 py-0.2 rounded-full">⏳ 입금대기</span>
-                  <span class="font-mono text-zinc-500">80,000원</span>
+                  <span class="text-[9px] font-bold text-emerald-700 bg-emerald-50 px-1.5 py-0.2 rounded-full">🟢 8만 완납</span>
+                  <span class="font-mono font-bold">80,000원</span>
                 </div>
               </div>
               <div class="text-center text-[11px] text-[#78c3a9]">
-                📦 <strong>GitHub 연동 완료:</strong> hanjjaem/dg-ai-learning-crew (최신 커밋 배포 완료)
+                📦 <strong>GitHub 커밋 완료:</strong> hanjjaem/dg-ai-learning-crew (출장면제·장부·공휴일 방어막 탑재)
               </div>
             </div>
 
           </div>
 
-          <!-- 하단 네비게이션 키 안내 -->
+          <!-- 하단 스텝 표시 -->
           <div class="border-t border-white/10 pt-3 flex items-center justify-between text-[11px] text-white/50 shrink-0">
             <span>💡 마우스 스크롤 또는 [이전/다음] 버튼 클릭</span>
-            <span class="font-mono text-[#78c3a9]"><span id="step-number-display">1</span> / 6 STEPS</span>
+            <span class="font-mono text-[#78c3a9]"><span id="step-number-display">1</span> / 8 STEPS</span>
           </div>
 
         </div>
@@ -535,14 +598,14 @@
     </div>
   </main>
 
-  <!-- 4. 결론 및 동아리원 Q&A 세션 섹션 -->
+  <!-- 4. 결론 및 요약 -->
   <footer class="border-t border-white/10 bg-[#070a09] py-20 px-6">
     <div class="max-w-4xl mx-auto text-center space-y-6">
       <h3 class="text-2xl sm:text-4xl font-bold text-white tracking-tight">
         "내가 기획자(PM)가 되고, AI를 개발 부하 직원으로 부리세요."
       </h3>
       <p class="text-sm sm:text-base text-[#8e9c96] max-w-xl mx-auto leading-relaxed">
-        코딩을 배울 시간에 우리 부서의 진짜 문제와 업무 프로세스를 고민하세요.<br>
+        코딩을 배울 시간에 <strong>우리 부서의 진짜 고통과 업무 프로세스</strong>를 고민하세요.<br>
         구현과 버그 수정은 AI에게 맡기고, 여러분은 <strong>방향 설정과 품질 검증</strong>만 담당하면 됩니다.
       </p>
 
@@ -559,18 +622,20 @@
     </div>
   </footer>
 
-  <!-- 5. 스크롤 및 단계 전환 제어 자바스크립트 -->
+  <!-- 5. 스크립트 -->
   <script>
     let currentStep = 1;
-    const totalSteps = 6;
+    const totalSteps = 8;
 
     const stepTitles = {
-      1: "STEP 01 // 헤더 위계 단일화 및 불필요한 기능 쳐내기",
-      2: "STEP 02 // 사내 기존 자산(동구_공모전) 레퍼런스 제시",
-      3: "STEP 03 // 캡처 1장으로 모달 상단 잘림 버그 진압",
-      4: "STEP 04 // 행 클릭 vs 외부 링크 클릭 분리 (UX 통제권)",
-      5: "STEP 05 // 관리자(현업) 관점 되묻기 (4대 엣지케이스 방어)",
-      6: "STEP 06 // 실데이터 8만 원 전환 및 깃허브 자산화"
+      1: "기획 01 // 카카오톡 단톡방 인증의 3대 비극과 문제 정의",
+      2: "기획 02 // 3초 컷 무마찰 & 데스크톱 와이드 3대 UX 원칙",
+      3: "기획 03 // AI를 통제하는 헌법 (AGENTS.md) 수립",
+      4: "구현 01 // 과감한 쳐내기 (드롭다운과 군더더기 장식 삭제)",
+      5: "확장 02 // 사내 기존 자산(동구_공모전) 레퍼런스 제시",
+      6: "디버깅 03 // 말보다 빠른 캡처 1장으로 모달 상단 잘림 치료",
+      7: "고도화 04 // 행 클릭 vs 외부 링크 클릭 분리 (사용자 통제권)",
+      8: "런칭 05 // 관리자 4대 엣지케이스 & 8만원 실데이터 런칭"
     };
 
     function updateStep(step) {
@@ -578,7 +643,6 @@
       if (step > totalSteps) step = totalSteps;
       currentStep = step;
 
-      // 1. 프로그레스 바 & 배지 업데이트
       const progressPercent = ((step) / totalSteps) * 100;
       document.getElementById('progress-bar').style.width = progressPercent + '%';
       document.getElementById('step-badge').innerText = `STEP 0${step}`;
@@ -586,7 +650,6 @@
       document.getElementById('step-number-display').innerText = step;
       document.getElementById('canvas-status-label').innerText = stepTitles[step];
 
-      // 2. 좌측 스텝 카드 활성화
       document.querySelectorAll('.step-card').forEach((card) => {
         const cStep = parseInt(card.getAttribute('data-step'), 10);
         if (cStep === step) {
@@ -598,7 +661,6 @@
         }
       });
 
-      // 3. 우측 캔버스 패널 전환
       for (let i = 1; i <= totalSteps; i++) {
         const panel = document.getElementById(`panel-${i}`);
         if (!panel) continue;
@@ -624,7 +686,6 @@
       updateStep(target);
     }
 
-    // IntersectionObserver로 스크롤 시 자동 스텝 감지
     const observerOptions = {
       root: null,
       rootMargin: '-30% 0px -30% 0px',
@@ -646,7 +707,6 @@
       observer.observe(el);
     });
 
-    // 키보드 화살표 키 네비게이션 지원
     window.addEventListener('keydown', (e) => {
       if (e.key === 'ArrowDown' || e.key === 'PageDown') {
         navigateStep(1);
