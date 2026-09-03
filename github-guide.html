@@ -1,0 +1,216 @@
+<!-- Same as public/github-guide.html for offline local double-click -->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>부록: 초보자도 3분 만에 끝내는 GitHub & GitHub CLI 완벽 가이드</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+  <style>
+    * { font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif; }
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #0c100e; }
+    ::-webkit-scrollbar-thumb { background: #23312a; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #087a5b; }
+    .glass-box {
+      background: rgba(18, 25, 22, 0.88);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+  </style>
+</head>
+<body class="bg-[#0a0e0c] text-[#e3e8e5] antialiased selection:bg-[#087a5b] selection:text-white min-h-screen py-12 px-6 sm:px-14">
+
+  <!-- 상단 내비게이션 바 -->
+  <div class="max-w-5xl mx-auto flex items-center justify-between pb-8 border-b border-white/10 mb-12">
+    <div class="flex items-center gap-3">
+      <span class="w-9 h-9 rounded-xl bg-[#087a5b] text-white font-black flex items-center justify-center text-sm shadow-lg shadow-[#087a5b]/40">
+        AI
+      </span>
+      <div>
+        <h1 class="text-lg font-bold text-white">AI 러닝크루 2기 교육 실습 부록</h1>
+        <p class="text-xs text-[#78c3a9]">GitHub 회원가입 · CLI 설치 · 환경설정 원스톱 가이드</p>
+      </div>
+    </div>
+    <a href="presentation.html" class="px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-xs sm:text-sm font-bold text-white transition-all">
+      ← 발표 화면으로 돌아가기
+    </a>
+  </div>
+
+  <main class="max-w-5xl mx-auto space-y-12">
+
+    <!-- 타이틀 배너 -->
+    <div class="text-center space-y-4">
+      <span class="px-3.5 py-1.5 rounded-full bg-[#087a5b]/20 border border-[#087a5b]/40 text-[#78c3a9] text-xs font-black uppercase tracking-wider">
+        Appendix · GitHub Zero-to-One
+      </span>
+      <h2 class="text-3xl sm:text-5xl font-black text-white tracking-tight leading-snug">
+        "깃허브 웹사이트에 들어갈 필요 없습니다.<br>
+        <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#78c3a9] via-emerald-300 to-teal-200">
+          터미널 한 줄로 원격 저장소
+        </span>를 만드세요."
+      </h2>
+      <p class="text-base sm:text-lg text-zinc-400 max-w-2xl mx-auto">
+        오늘 발표에서 보셨던 것처럼, 마우스 클릭 노가다 없이 AI와 함께 깃허브에 코드를 즉시 올릴 수 있도록 딱 3분 만에 환경을 세팅해 드립니다.
+      </p>
+    </div>
+
+    <!-- PART 1: 깃허브 회원가입 -->
+    <section class="glass-box p-8 rounded-3xl space-y-6">
+      <div class="flex items-center gap-3 border-b border-white/10 pb-4">
+        <span class="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 font-bold flex items-center justify-center text-sm">
+          01
+        </span>
+        <h3 class="text-xl sm:text-2xl font-bold text-white">GitHub 회원가입 (1분 컷)</h3>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+        <div class="p-4 rounded-2xl bg-white/5 border border-white/10 space-y-2">
+          <span class="text-xs font-bold text-[#78c3a9]">STEP 1-1</span>
+          <h4 class="font-bold text-white">공식 웹사이트 접속</h4>
+          <p class="text-xs text-zinc-400">브라우저에서 <a href="https://github.com" target="_blank" class="text-emerald-400 underline font-mono">github.com</a>에 접속한 뒤 우측 상단 <strong>[Sign up]</strong> 클릭</p>
+        </div>
+
+        <div class="p-4 rounded-2xl bg-white/5 border border-white/10 space-y-2">
+          <span class="text-xs font-bold text-[#78c3a9]">STEP 1-2</span>
+          <h4 class="font-bold text-white">이메일 & 계정 정보 입력</h4>
+          <p class="text-xs text-zinc-400">자주 쓰는 이메일(구글 메일 등) 입력 ➡️ 비밀번호 설정 ➡️ 원하는 영문 아이디(Username) 입력</p>
+        </div>
+
+        <div class="p-4 rounded-2xl bg-white/5 border border-white/10 space-y-2">
+          <span class="text-xs font-bold text-[#78c3a9]">STEP 1-3</span>
+          <h4 class="font-bold text-white">인증코드 확인 & 완료</h4>
+          <p class="text-xs text-zinc-400">이메일함으로 도착한 6자리 보안 번호를 입력하면 즉시 가입 완료!</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PART 2: GitHub CLI 설치 -->
+    <section class="glass-box p-8 rounded-3xl space-y-6">
+      <div class="flex items-center gap-3 border-b border-white/10 pb-4">
+        <span class="w-8 h-8 rounded-lg bg-blue-500/20 text-blue-400 font-bold flex items-center justify-center text-sm">
+          02
+        </span>
+        <h3 class="text-xl sm:text-2xl font-bold text-white">GitHub CLI (`gh`) 설치 방법 (Windows)</h3>
+      </div>
+
+      <p class="text-sm text-zinc-300">
+        GitHub CLI는 깃허브 웹사이트에 접속하지 않고도 터미널 명령어만으로 저장소 생성, PR, 이슈 관리를 할 수 있는 공식 도구입니다.
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm">
+        <div class="p-6 rounded-2xl bg-emerald-950/20 border border-emerald-500/40 space-y-3">
+          <div class="flex items-center justify-between">
+            <span class="px-2.5 py-0.5 rounded-full bg-emerald-500/30 text-emerald-300 text-xs font-bold">🚀 가장 추천하는 빠른 방법</span>
+            <span class="text-xs text-zinc-400 font-mono">10초 완료</span>
+          </div>
+          <h4 class="font-bold text-white text-base">Windows 패키지 매니저로 한 줄 설치</h4>
+          <p class="text-xs text-zinc-300">
+            윈도우 <strong>PowerShell</strong>(또는 터미널)을 열고 아래 명령어를 붙여넣고 엔터를 치면 끝납니다:
+          </p>
+          <div class="p-3 bg-zinc-950 rounded-xl font-mono text-emerald-400 text-xs flex items-center justify-between border border-zinc-800">
+            <span>winget install --id GitHub.cli</span>
+          </div>
+        </div>
+
+        <div class="p-6 rounded-2xl bg-white/5 border border-white/10 space-y-3">
+          <span class="px-2.5 py-0.5 rounded-full bg-white/10 text-zinc-400 text-xs font-bold">설치 파일 다운로드 방식</span>
+          <h4 class="font-bold text-white text-base">공식 웹사이트에서 설치 파일 받기</h4>
+          <p class="text-xs text-zinc-400">
+            1. 공식 다운로드 페이지 <a href="https://cli.github.com" target="_blank" class="text-blue-400 underline font-mono">cli.github.com</a> 접속<br>
+            2. <strong>[Download for Windows]</strong> 버튼 클릭<br>
+            3. 다운로드된 `.msi` 설치 파일을 실행하고 [Next]만 누르면 설치 완료!
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PART 3: 환경설정 & 브라우저 간편 로그인 -->
+    <section class="glass-box p-8 rounded-3xl space-y-6">
+      <div class="flex items-center gap-3 border-b border-white/10 pb-4">
+        <span class="w-8 h-8 rounded-lg bg-purple-500/20 text-purple-400 font-bold flex items-center justify-center text-sm">
+          03
+        </span>
+        <h3 class="text-xl sm:text-2xl font-bold text-white">환경설정 & 브라우저 간편 로그인 (`gh auth login`)</h3>
+      </div>
+
+      <p class="text-sm text-zinc-300">
+        설치가 끝났다면, 딱 한 번만 내 깃허브 계정과 터미널을 연결해 주면 영구적으로 자유롭게 쓸 수 있습니다.
+      </p>
+
+      <div class="space-y-4 text-sm font-mono">
+        <div class="p-5 rounded-2xl bg-zinc-950 border border-zinc-800 space-y-3">
+          <div class="flex items-center gap-2 text-xs text-zinc-400">
+            <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+            <span>PowerShell 또는 터미널에 아래 명령어 입력:</span>
+          </div>
+          <div class="text-emerald-400 font-bold text-base">
+            gh auth login
+          </div>
+        </div>
+
+        <div class="p-5 rounded-2xl bg-zinc-950 border border-zinc-800 space-y-3 text-xs leading-relaxed">
+          <p class="text-zinc-400 font-bold font-sans">터미널에 질문이 나오면 순서대로 아래처럼 선택하세요:</p>
+          <div class="p-3 bg-white/5 rounded-xl space-y-2 text-zinc-300">
+            <p>1. <span class="text-amber-300">? What account do you want to log into?</span> ➡️ <strong>GitHub.com</strong> (엔터)</p>
+            <p>2. <span class="text-amber-300">? What is your preferred protocol for Git operations?</span> ➡️ <strong>HTTPS</strong> (엔터)</p>
+            <p>3. <span class="text-amber-300">? Authenticate Git with your GitHub credentials?</span> ➡️ <strong>Yes</strong> (엔터)</p>
+            <p>4. <span class="text-amber-300">? How would you like to authenticate GitHub CLI?</span> ➡️ <strong class="text-emerald-400">Login with a web browser</strong> (엔터)</p>
+          </div>
+
+          <div class="p-4 rounded-xl bg-emerald-950/40 border border-emerald-500/40 text-emerald-200 font-sans text-xs space-y-1">
+            <strong class="block text-white text-sm">🎉 마지막 1초:</strong>
+            화면에 <strong>일회용 8자리 코드(예: 1234-ABCD)</strong>가 뜹니다.<br>
+            엔터를 누르면 인터넷 창이 뜨는데, 코드를 붙여넣고 <strong>[Authorize github]</strong> 버튼만 누르면 로그인 끝!
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PART 4: 마법의 3줄 명령어 -->
+    <section class="glass-box p-8 rounded-3xl space-y-6 border-l-8 border-amber-500">
+      <div class="flex items-center justify-between border-b border-white/10 pb-4">
+        <h3 class="text-xl sm:text-2xl font-bold text-white flex items-center gap-2">
+          <span>⚡️</span> 오늘 우리가 사용한 "마법의 깃허브 원터치 3줄 명령어"
+        </h3>
+        <span class="px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 text-xs font-bold font-mono">Pro Tip</span>
+      </div>
+
+      <p class="text-sm text-zinc-300">
+        이제 프로젝트를 만들었을 때, 웹사이트에 들어가서 버튼을 누를 필요 없이 아래 3줄만 실행하면 원격 저장소 생성부터 푸시까지 3초 만에 끝납니다:
+      </p>
+
+      <div class="p-5 rounded-2xl bg-zinc-950 border border-zinc-800 font-mono text-xs sm:text-sm text-zinc-200 space-y-3">
+        <div class="flex items-start gap-2">
+          <span class="text-zinc-500 select-none">1.</span>
+          <div>
+            <span class="text-emerald-400 font-bold">git init</span>
+            <span class="text-zinc-500 text-xs block font-sans"># 내 컴퓨터 폴더를 깃 저장소로 초기화</span>
+          </div>
+        </div>
+        <div class="flex items-start gap-2">
+          <span class="text-zinc-500 select-none">2.</span>
+          <div>
+            <span class="text-emerald-400 font-bold">git add . && git commit -m "feat: 첫 프로젝트 완성"</span>
+            <span class="text-zinc-500 text-xs block font-sans"># 모든 코드를 사진 찍듯 스냅샷 커밋 생성</span>
+          </div>
+        </div>
+        <div class="flex items-start gap-2">
+          <span class="text-zinc-500 select-none">3.</span>
+          <div>
+            <span class="text-amber-400 font-bold">gh repo create 내프로젝트명 --private --source=. --remote=origin --push</span>
+            <span class="text-zinc-500 text-xs block font-sans"># 깃허브에 비공개(private) 저장소를 만들고 코드를 원격에 즉시 푸시!</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="max-w-5xl mx-auto pt-16 pb-12 text-center text-xs text-zinc-500 font-mono">
+    AI Learning Crew Season 2 · Busan Dong-gu Office Educational Material
+  </footer>
+
+</body>
+</html>
