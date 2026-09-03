@@ -1,0 +1,70 @@
+@import "tailwindcss";
+
+:root {
+  --bg: #f6f8f7;
+  --surface: #ffffff;
+  --text: #111312;
+  --muted: #717875;
+  --line: #e8ebe9;
+  --accent: #087a5b;
+  --accent-soft: #eaf5f1;
+  --dark: #0f1714;
+  --font-pretendard: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", sans-serif;
+}
+
+body {
+  font-family: var(--font-pretendard);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  letter-spacing: -0.02em;
+  background-color: var(--bg);
+  color: var(--text);
+  margin: 0;
+}
+
+/* 윈도우 스크롤바 ➡️ 실리콘밸리 6px 슬림 스크롤바 */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #e2e5e3;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a8b0ac;
+}
+
+/* 드로어 슬라이드 애니메이션 */
+@keyframes slideLeft {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.animate-slide-left {
+  animation: slideLeft 220ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* 페이드인 애니메이션 (fixed 요소 왜곡 방지를 위해 transform 제거) */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 150ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
