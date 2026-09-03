@@ -1,4 +1,4 @@
-<!-- Same wide & large font version for web access -->
+<!-- Same 9 steps version for web access -->
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -60,6 +60,11 @@
       color: #60a5fa;
       border: 1px solid rgba(59, 130, 246, 0.45);
     }
+    .badge-db {
+      background: rgba(168, 85, 247, 0.2);
+      color: #c084fc;
+      border: 1px solid rgba(168, 85, 247, 0.45);
+    }
     .badge-ops {
       background: rgba(245, 158, 11, 0.2);
       color: #fbbf24;
@@ -69,7 +74,7 @@
 </head>
 <body class="bg-[#0a0e0c] text-[#e3e8e5] antialiased selection:bg-[#087a5b] selection:text-white">
 
-  <!-- 1. 상단 글로벌 고정 헤더 & 대형 프로그레스 바 -->
+  <!-- 1. 상단 글로벌 고정 헤더 -->
   <header class="fixed top-0 left-0 right-0 z-50 h-20 bg-[#0a0e0c]/95 backdrop-blur-md border-b border-white/10 px-8 sm:px-14 flex items-center justify-between">
     <div class="flex items-center gap-4">
       <span class="w-10 h-10 rounded-xl bg-[#087a5b] text-white font-black flex items-center justify-center text-lg shadow-lg shadow-[#087a5b]/40">
@@ -77,10 +82,11 @@
       </span>
       <div>
         <h1 class="text-lg sm:text-xl font-extrabold text-white tracking-tight">AI 러닝크루 2기 실전 교육 세션</h1>
-        <p class="text-xs sm:text-sm text-[#78c3a9] font-medium">비개발자 공무원의 AI 페어 프로그래밍 실전기</p>
+        <p class="text-xs sm:text-sm text-[#78c3a9] font-medium">기획 · 화면 · DB 설계 · 런칭까지 페어 프로그래밍 실전기</p>
       </div>
     </div>
 
+    <!-- 스텝 인디케이터 배너 -->
     <div class="hidden lg:flex items-center gap-3">
       <span id="step-badge" class="px-3.5 py-1.5 rounded-full bg-[#087a5b]/25 text-[#78c3a9] border border-[#087a5b]/50 text-sm font-bold">
         STEP 01
@@ -90,6 +96,7 @@
       </span>
     </div>
 
+    <!-- 컨트롤 버튼 -->
     <div class="flex items-center gap-2.5">
       <button onclick="navigateStep(-1)" class="px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-sm font-bold text-white border border-white/15 transition-all">
         ▲ 이전
@@ -99,44 +106,51 @@
       </button>
     </div>
 
-    <div id="progress-bar" class="absolute bottom-0 left-0 h-[3px] bg-gradient-to-r from-[#087a5b] to-emerald-400 transition-all duration-300" style="width: 0%;"></div>
+    <!-- 진행도 바 -->
+    <div id="progress-bar" class="absolute bottom-0 left-0 h-[3px] bg-gradient-to-r from-[#087a5b] via-purple-500 to-emerald-400 transition-all duration-300" style="width: 0%;"></div>
   </header>
 
   <!-- 2. 인트로 히어로 섹션 -->
   <section class="min-h-screen pt-36 pb-24 px-8 sm:px-16 w-full flex flex-col justify-center items-center text-center">
     <div class="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-[#087a5b]/20 border border-[#087a5b]/40 text-[#78c3a9] text-xs sm:text-sm font-extrabold uppercase tracking-wider mb-8 animate-pulse">
-      From Ideation to Production · Complete Roadmap
+      From Ideation, UI, DB Design to Production · 9 Steps Roadmap
     </div>
     
     <h2 class="text-4xl sm:text-6xl lg:text-7xl font-black text-white tracking-tight leading-[1.18] mb-8 max-w-6xl">
       "코딩은 AI가 합니다.<br>
-      <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#78c3a9] via-emerald-300 to-teal-200">
-        진짜 핵심은 '기획'과 '통제'
+      <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#78c3a9] via-purple-300 to-emerald-300">
+        진짜 핵심은 '기획', '통제', 그리고 'DB 설계'
       </span>입니다."
     </h2>
     
     <p class="text-lg sm:text-2xl text-[#9cb0a7] max-w-4xl leading-relaxed mb-14">
-      카카오톡 단톡방에서 매일 대화방 올리며 엑셀로 체크하던 반복 업무를 끝내기 위해,<br class="hidden sm:block">
-      <strong>기획자가 AI에게 어떤 문제를 던지고 어떻게 교정했는지</strong> 실전 8단계를 공개합니다.
+      카카오톡 단톡방의 스크롤 지옥을 끝내기 위해 기획을 세우고, 화면을 쳐내고,<br class="hidden sm:block">
+      <strong>"실제 데이터 넣기 전에 DB 설계부터 해야지!"</strong>라며 4대 방어막을 구축한 9단계 전 과정을 공개합니다.
     </p>
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-6xl text-left">
-      <div class="glass-box p-7 rounded-3xl border-l-8 border-emerald-500 shadow-xl">
-        <div class="text-sm font-black text-emerald-400 uppercase tracking-wide mb-2">PART 1. 기획의 정점</div>
-        <div class="text-xl font-bold text-white mb-2">단톡방의 한계 & 3초 컷 원칙</div>
-        <p class="text-sm sm:text-base text-[#8d9e96] leading-relaxed">단톡방의 반복 업무를 분석하고, AI를 통제할 행동 지침(AGENTS.md)을 먼저 수립합니다.</p>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 w-full max-w-6xl text-left">
+      <div class="glass-box p-6 rounded-3xl border-l-6 border-emerald-500 shadow-xl">
+        <div class="text-xs font-black text-emerald-400 uppercase tracking-wide mb-1.5">PART 1. 기획의 정점</div>
+        <div class="text-lg font-bold text-white mb-1.5">단톡방의 한계 & 3초 컷</div>
+        <p class="text-xs sm:text-sm text-[#8d9e96]">스크롤 지옥을 분석하고, AI를 통제할 헌법(AGENTS.md) 수립</p>
       </div>
 
-      <div class="glass-box p-7 rounded-3xl border-l-8 border-blue-500 shadow-xl">
-        <div class="text-sm font-black text-blue-400 uppercase tracking-wide mb-2">PART 2. 구현 & 피드백</div>
-        <div class="text-xl font-bold text-white mb-2">과감한 삭제 & 스크린샷 1장</div>
-        <p class="text-sm sm:text-base text-[#8d9e96] leading-relaxed">쓸데없는 기능은 쳐내고, 사내 자산을 재활용하며 화면 캡처 한 장으로 버그를 잡습니다.</p>
+      <div class="glass-box p-6 rounded-3xl border-l-6 border-blue-500 shadow-xl">
+        <div class="text-xs font-black text-blue-400 uppercase tracking-wide mb-1.5">PART 2. 화면 & 피드백</div>
+        <div class="text-lg font-bold text-white mb-1.5">과감한 삭제 & 스크린샷</div>
+        <p class="text-xs sm:text-sm text-[#8d9e96]">사내 자산 재활용 및 캡처 한 장으로 모달 상단 잘림 버그 진압</p>
       </div>
 
-      <div class="glass-box p-7 rounded-3xl border-l-8 border-amber-500 shadow-xl">
-        <div class="text-sm font-black text-amber-400 uppercase tracking-wide mb-2">PART 3. 실무 런칭</div>
-        <div class="text-xl font-bold text-white mb-2">총무 4대 방어막 & 8만원 수납</div>
-        <p class="text-sm sm:text-base text-[#8d9e96] leading-relaxed">출장 면제, 회비 장부, 공휴일 제외 등 실무 엣지케이스를 방어하고 실데이터로 런칭합니다.</p>
+      <div class="glass-box p-6 rounded-3xl border-l-6 border-purple-500 shadow-xl">
+        <div class="text-xs font-black text-purple-400 uppercase tracking-wide mb-1.5">PART 3. DB 설계 (핵심)</div>
+        <div class="text-lg font-bold text-white mb-1.5">ERD & 총무 4대 방어막</div>
+        <p class="text-xs sm:text-sm text-[#8d9e96]">출장 면제, 1원 단위 회계 장부, 공휴일 제외 테이블 모델링</p>
+      </div>
+
+      <div class="glass-box p-6 rounded-3xl border-l-6 border-amber-500 shadow-xl">
+        <div class="text-xs font-black text-amber-400 uppercase tracking-wide mb-1.5">PART 4. 실전 런칭</div>
+        <div class="text-lg font-bold text-white mb-1.5">8만원 수납 & 깃허브 자산화</div>
+        <p class="text-xs sm:text-sm text-[#8d9e96]">샘플 데이터 삭제, 16명 실명단 및 8명 완납 라이브 배포</p>
       </div>
     </div>
 
@@ -150,7 +164,7 @@
   <main class="relative w-full px-6 sm:px-12 xl:px-20 pb-40">
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 xl:gap-16 items-start">
       
-      <!-- [좌측 5칸] 내러티브 스토리텔링 -->
+      <!-- 좌측 스토리 -->
       <div class="lg:col-span-5 space-y-48 pt-12 pb-48">
         
         <!-- STEP 1 -->
@@ -163,7 +177,7 @@
           </h3>
           <div class="bg-[#141d19] border-l-4 border-emerald-500 p-5 rounded-r-2xl text-sm sm:text-base text-[#d1dbd6] leading-relaxed mb-5">
             <strong class="text-white block text-base font-bold mb-1.5">🎯 기획자의 문제 의식:</strong>
-            "단톡방에 회원들이 AI와 대화한 내용과 링크를 올릴 때마다 대화가 계속 쌓여 끝없이 스크롤해야 하고, 총무는 매일 밤 '누가 냈는지, 누가 미제출인지, 벌금(2,000원)은 얼마인지' 엑셀을 켜놓고 수기로 대조해야 한다."
+            "단톡방에 회원들이 대화 링크를 올릴 때마다 대화가 계속 쌓여 끝없이 스크롤해야 하고, 총무는 매일 밤 '누가 냈는지, 누가 미제출인지, 벌금(2,000원)은 얼마인지' 엑셀을 켜놓고 수기로 대조해야 한다."
           </div>
           <p class="text-sm sm:text-base text-[#9cb0a7] leading-relaxed mb-5">
             대부분의 프로젝트는 <strong>"무엇을 만들까?"</strong>부터 생각하다가 산으로 갑니다.<br>
@@ -190,7 +204,7 @@
             3. <strong>지식 자산화 (Knowledge Hub):</strong> 동료가 검증한 실무 프롬프트 원클릭 복사
           </div>
           <p class="text-sm sm:text-base text-[#9cb0a7] leading-relaxed mb-5">
-            인증하는 데 10초 이상 걸리거나 복잡하면 크루원들은 포기합니다.<br>
+            인증하는 데 10초 이상 걸리거나 복잡하면 크루원들은 참여를 포기합니다.<br>
             크루원들이 매일 실제로 하는 액션은 <strong>'대화방의 Share(공유) 버튼을 눌러 링크를 복사하는 것'</strong>뿐입니다.<br>
             이 실제 행동에 정확히 맞춰 <strong>[Ctrl+V 링크 붙여넣기] ➡️ [1초 완료]</strong> 흐름을 기획의 절대 원칙으로 못 박았습니다.
           </p>
@@ -289,13 +303,13 @@
 
         <!-- STEP 7 -->
         <article class="step-card inactive" data-step="7">
-          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg badge-ops text-sm font-black mb-4">
+          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg badge-dev text-sm font-black mb-4">
             UX 고도화 04 · 사용자 주도권 확립
           </div>
           <h3 class="text-3xl sm:text-4xl font-black text-white tracking-tight leading-snug mb-5">
             "버튼 말고 행을 눌러도 튕기는데 이게 맞아? 버튼을 눌러야지."
           </h3>
-          <div class="bg-[#141d19] border-l-4 border-amber-500 p-5 rounded-r-2xl text-sm sm:text-base text-[#d1dbd6] leading-relaxed mb-5">
+          <div class="bg-[#141d19] border-l-4 border-blue-500 p-5 rounded-r-2xl text-sm sm:text-base text-[#d1dbd6] leading-relaxed mb-5">
             <strong class="text-white block text-base font-bold mb-1.5">🗣️ 실제 지시 프롬프트:</strong>
             "아카이브에서 마우스 클릭하면 외부 링크로 연결되는 부분이 뭐뭐있어? 버튼 말고 행 전체를 눌러도 이동하는데 이게 맞아? 특정 버튼을 눌러야 이동시켜야지."
           </div>
@@ -308,32 +322,58 @@
           </div>
         </article>
 
-        <!-- STEP 8 -->
+        <!-- STEP 8: DB 설계 -->
         <article class="step-card inactive" data-step="8">
-          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg badge-ops text-sm font-black mb-4">
-            실전 런칭 05 · 관리자 관점 역질문 & 8만원 실데이터
+          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg badge-db text-sm font-black mb-4">
+            DB 설계 05 · ERD 모델링 & 총무 4대 방어 스키마
           </div>
           <h3 class="text-3xl sm:text-4xl font-black text-white tracking-tight leading-snug mb-5">
-            "관리자 입장에서 부족한 부분 없어? 실데이터 8만원 반영해."
+            "실제 데이터 넣기 전에 DB 설계부터 해야지. ERD 설계해봐."
+          </h3>
+          <div class="bg-[#141d19] border-l-4 border-purple-500 p-5 rounded-r-2xl text-sm sm:text-base text-[#d1dbd6] leading-relaxed mb-5">
+            <strong class="text-purple-300 block text-base font-bold mb-1.5">🗣️ 실제 지시 프롬프트:</strong>
+            "좋아 이제 샘플 데이터는 지우고 실제 데이터로 테스트해 보자. 그전에 DB 설계부터 해야겠지? ERD 설계해봐. 관리자 입장에서 부족한 부분 없어? 스키마 구성해줘 그리고 Supabase에 구축해."
+          </div>
+          <p class="text-sm sm:text-base text-[#9cb0a7] leading-relaxed mb-5">
+            임시 화면 목업에서 진짜 영구 보존 시스템으로 넘어가는 가장 중요한 관문입니다.<br>
+            기획자가 <strong>"관리자 입장에서 부족한 게 뭐지?"</strong>라고 되묻자, 단순 회원/제출 테이블을 넘어 <strong>실제 공무원 운영에서 반드시 필요한 4대 특화 테이블</strong>이 구축되었습니다:
+            <br><br>
+            1. <strong>출장·연차 면제 테이블 (`crew_exemptions`):</strong> 출장 시 벌금 2,000원 자동 면제<br>
+            2. <strong>회비 1원 단위 장부 원장 (`crew_fee_ledger`):</strong> 입금, 환급, 시상금 투명 복식부기<br>
+            3. <strong>법정공휴일 자동 제외 (`crew_holidays`):</strong> 추석·대체공휴일 벌금 미부과<br>
+            4. <strong>개인정보 블라인드 (`is_hidden`):</strong> 대외비·민원정보 원클릭 숨김
+          </p>
+          <div class="p-4 rounded-xl bg-purple-950/30 border border-purple-500/30 text-xs sm:text-sm text-purple-300 flex items-center gap-2.5">
+            <span>💡 <strong>실습 포인트:</strong> 비개발자도 "ERD 설계해봐", "관리자 입장에서 빠진 게 뭐야?" 한마디면 엔터프라이즈급 SQL 스키마가 도출됩니다.</span>
+          </div>
+        </article>
+
+        <!-- STEP 9 -->
+        <article class="step-card inactive" data-step="9">
+          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg badge-ops text-sm font-black mb-4">
+            실전 런칭 06 · 초기 회비 8만원 & 실데이터 자산화
+          </div>
+          <h3 class="text-3xl sm:text-4xl font-black text-white tracking-tight leading-snug mb-5">
+            "초기 회비 8만원으로 수정하고, 8명 입금완료 처리해."
           </h3>
           <div class="bg-[#141d19] border-l-4 border-amber-500 p-5 rounded-r-2xl text-sm sm:text-base text-[#d1dbd6] leading-relaxed mb-5">
             <strong class="text-amber-400 block text-base font-bold mb-1.5">🗣️ 실제 지시 프롬프트:</strong>
-            "관리자 입장에서 부족한 부분 없어? 초기 회비 8만원으로 수정. 김남희 등 8명 입금완료 처리. 이현아 복지정책과로 수정. 깃허브에 올려줘."
+            "초기 회비 8만원으로 수정해. 김남희, 남수현 등 8명 입금완료 처리. 이현아 복지정책과로 수정. 지금까지 작업한 내역 깃허브에 올려줘."
           </div>
           <p class="text-sm sm:text-base text-[#9cb0a7] leading-relaxed mb-5">
-            "관리자 입장에서 부족한 게 뭐지?"라는 한마디로 <strong>출장 면제, 회비 장부, 공휴일 벌금 제외, 개인정보 블라인드</strong> 4대 방어막을 챙겼습니다.<br>
-            그리고 가짜 샘플을 지우고 <strong>실제 16명 크루원 명단과 8명 완납(640,000원, 50%) 실데이터</strong>를 주입하여 실서비스로 완성했습니다.
+            가짜 테스트 데이터를 싹 비우고, <strong>실제 16명 크루원 명단과 8명 완납(640,000원, 50%) 실데이터</strong>를 Supabase DB와 스토리지에 동기화했습니다.<br>
+            마지막으로 GitHub 원격 저장소에 프로젝트 전체를 안전하게 백업·푸시하여 <strong>동구청의 공공 디지털 자산</strong>으로 런칭을 완료했습니다.
           </p>
           <div class="p-4 rounded-xl bg-white/5 border border-white/10 text-xs sm:text-sm text-[#78c3a9] flex items-center gap-2.5">
-            <span>💡 <strong>실습 포인트:</strong> "운영자 입장에서 빠진 게 뭐야?"라고 AI에게 되물어보세요. 엣지케이스를 다 찾아냅니다.</span>
+            <span>💡 <strong>실습 포인트:</strong> 기획과 DB가 완성되면 실제 데이터로 즉시 라이브 테스트를 진행하고 깃허브에 영구 보존하세요.</span>
           </div>
         </article>
 
       </div>
 
-      <!-- [우측 7칸] 대형 라이브 캔버스 -->
+      <!-- 우측 캔버스 -->
       <div class="lg:col-span-7 sticky top-28">
-        <div class="glass-box rounded-3xl p-7 sm:p-9 border border-white/15 shadow-2xl overflow-hidden min-h-[660px] flex flex-col justify-between relative">
+        <div class="glass-box rounded-3xl p-7 sm:p-9 border border-white/15 shadow-2xl overflow-hidden min-h-[670px] flex flex-col justify-between relative">
           
           <div class="flex items-center justify-between border-b border-white/10 pb-5 mb-5 shrink-0">
             <div class="flex items-center gap-2.5">
@@ -540,8 +580,55 @@
               <p class="text-sm text-[#8d9e96] text-center">예기치 못한 외부 사이트 튕김을 막아 사용자에게 완벽한 통제권 부여</p>
             </div>
 
-            <!-- 패널 8 -->
+            <!-- 패널 8: DB 설계 & ERD 모델링 -->
             <div id="panel-8" class="canvas-panel hidden-panel w-full space-y-4">
+              <div class="text-base font-extrabold text-purple-300 flex items-center justify-between mb-1">
+                <span>🗄️ Supabase PostgreSQL 관계형 ERD 모델링</span>
+                <span class="text-xs px-2.5 py-1 rounded bg-purple-500/30 text-purple-200 font-mono font-bold">SQL DDL</span>
+              </div>
+              
+              <div class="grid grid-cols-2 gap-2.5 text-xs">
+                <div class="p-3 rounded-xl bg-white/5 border border-purple-500/40 space-y-1">
+                  <div class="font-bold text-purple-300 flex items-center gap-1.5">
+                    <span>👤 crew_members</span>
+                  </div>
+                  <p class="text-[11px] text-zinc-400">id, name, dept, role, deposit_paid, paid_amount(8만원)</p>
+                </div>
+
+                <div class="p-3 rounded-xl bg-white/5 border border-blue-500/40 space-y-1">
+                  <div class="font-bold text-blue-300 flex items-center gap-1.5">
+                    <span>💬 crew_submissions</span>
+                  </div>
+                  <p class="text-[11px] text-zinc-400">member_id, prompt_url, ai_tool, title, showcase_type</p>
+                </div>
+
+                <div class="p-3 rounded-xl bg-purple-950/40 border border-purple-400/50 space-y-1">
+                  <div class="font-bold text-amber-300 flex items-center gap-1.5">
+                    <span>💰 crew_fee_ledger (장부)</span>
+                  </div>
+                  <p class="text-[11px] text-zinc-300">1원 단위 입출금 원장 (초기예치 8만, 벌금 -2천, 환급)</p>
+                </div>
+
+                <div class="p-3 rounded-xl bg-purple-950/40 border border-purple-400/50 space-y-1">
+                  <div class="font-bold text-emerald-300 flex items-center gap-1.5">
+                    <span>🏥 crew_exemptions (면제)</span>
+                  </div>
+                  <p class="text-[11px] text-zinc-300">출장·연차·병가 공무원 벌금 2,000원 자동 면제 승인</p>
+                </div>
+              </div>
+
+              <div class="p-3 rounded-xl bg-white/5 border border-white/10 flex items-center justify-between text-xs text-zinc-300">
+                <span>📅 <strong>crew_holidays:</strong> 공휴일 자동 벌금 제외</span>
+                <span>🔒 <strong>is_hidden:</strong> 개인정보 블라인드</span>
+              </div>
+
+              <div class="p-3 bg-purple-950/50 border border-purple-500/40 rounded-xl text-center text-xs sm:text-sm text-purple-200 font-bold">
+                🎉 "관리자 입장에서 부족한 부분 없어?" 한마디로 현업 특화 4대 방어 스키마 자동 도출!
+              </div>
+            </div>
+
+            <!-- 패널 9: 8만원 수납 & 깃허브 자산화 -->
+            <div id="panel-9" class="canvas-panel hidden-panel w-full space-y-4">
               <div class="p-5 rounded-2xl bg-[#131d18] border border-[#087a5b]/50 shadow-xl">
                 <div class="flex items-center justify-between mb-2">
                   <span class="font-extrabold text-white text-base">💰 2기 초기 회비(80,000원) 실시간 수납 대장</span>
@@ -584,7 +671,7 @@
 
           <div class="border-t border-white/10 pt-4 flex items-center justify-between text-xs sm:text-sm text-white/60 shrink-0">
             <span>💡 마우스 스크롤 또는 [이전/다음] 버튼 클릭</span>
-            <span class="font-mono text-[#78c3a9] font-bold text-base"><span id="step-number-display">1</span> / 8 STEPS</span>
+            <span class="font-mono text-[#78c3a9] font-bold text-base"><span id="step-number-display">1</span> / 9 STEPS</span>
           </div>
 
         </div>
@@ -619,7 +706,7 @@
 
   <script>
     let currentStep = 1;
-    const totalSteps = 8;
+    const totalSteps = 9;
 
     const stepTitles = {
       1: "기획 01 // 카톡 단톡방 인증의 한계와 진짜 문제 정의",
@@ -629,7 +716,8 @@
       5: "확장 02 // 사내 기존 자산(동구_공모전) 레퍼런스 제시",
       6: "디버깅 03 // 말보다 빠른 캡처 1장으로 모달 상단 잘림 치료",
       7: "고도화 04 // 행 클릭 vs 외부 링크 클릭 분리 (사용자 통제권)",
-      8: "런칭 05 // 관리자 4대 엣지케이스 & 8만원 실데이터 런칭"
+      8: "DB 설계 05 // ERD 모델링 & 관리자(총무) 4대 방어 스키마 구축",
+      9: "실전 런칭 06 // 초기 회비 8만원 & 실데이터 깃허브 자산화"
     };
 
     function updateStep(step) {
