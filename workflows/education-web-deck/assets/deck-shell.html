@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
+<title>{{TITLE}}</title>
+<style>
+:root { --paper:#f4f0e7; --ink:#191b1b; --muted:#bebeb4; --line:#484a43; --accent:#eee65a; --panel:#272a28; }
+* { box-sizing:border-box; }
+body { margin:0; background:#101211; color:var(--paper); font-family:"Pretendard","Apple SD Gothic Neo","Malgun Gothic",sans-serif; line-height:1.5; word-break:keep-all; overflow-wrap:anywhere; }
+button,textarea { font:inherit; }
+button,a,summary { touch-action:manipulation; }
+button { border:1px solid var(--line); color:inherit; background:var(--panel); padding:.5rem .8rem; cursor:pointer; }
+button:hover { border-color:var(--accent); }
+button:disabled { opacity:.35; cursor:default; }
+a { color:var(--accent); text-underline-offset:.22em; }
+:focus-visible { outline:3px solid var(--accent); outline-offset:4px; }
+[hidden],.js-only { display:none!important; }
+.enhanced .js-only { display:revert!important; }
+.deck-header { max-width:1400px; margin:auto; padding:1.2rem 2rem; display:flex; justify-content:space-between; gap:1rem; color:var(--muted); font-size:.8rem; }
+.deck-header span:last-child { white-space:nowrap; }
+.slide { --accent:#eee65a; max-width:1400px; min-height:600px; margin:0 auto 2rem; background:var(--ink); border:1px solid var(--line); padding:clamp(24px,4.4vw,72px); position:relative; }
+.slide[data-kind="exercise"],.slide[data-kind="demo"] { --accent:#9ee1af; }
+.slide[data-kind="reflection"],.slide[data-kind="qa"] { --accent:#fac49a; }
+.slide-meta { display:flex; justify-content:space-between; gap:1rem; font-size:clamp(12px,1.1vw,17px); color:var(--muted); letter-spacing:.04em; margin-bottom:clamp(18px,2.4vw,38px); }
+.slide-meta span:first-child { color:var(--accent); font-weight:800; }
+.slide-body { max-width:100%; }
+h1,h2,h3,p,ul,ol,dl { margin:0; }
+h1,h2 { font-size:clamp(30px,4vw,62px); font-weight:900; line-height:1.16; letter-spacing:-.055em; max-width:24ch; }
+.message { color:var(--muted); font-size:clamp(18px,1.65vw,26px); line-height:1.55; max-width:60ch; margin-top:1rem; white-space:pre-line; }
+.items { font-size:clamp(18px,1.75vw,28px); margin-top:clamp(20px,2.3vw,36px); padding-left:1.3em; }
+.items li { padding-left:.2rem; margin-bottom:.7rem; white-space:pre-line; }
+.items li::marker { color:var(--accent); font-weight:900; }
+.layout-hero { border-top:5px solid var(--accent); }
+.layout-hero .slide-body { padding-block:clamp(18px,3vw,46px); }
+.layout-hero h1,.layout-hero h2 { font-size:clamp(42px,5.8vw,90px); max-width:16ch; }
+.layout-hero .message { color:var(--paper); font-size:clamp(21px,2.1vw,32px); max-width:40ch; }
+.layout-cards .items { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1rem; list-style:none; padding:0; counter-reset:card; }
+.layout-cards .items li { counter-increment:card; margin:0; padding:1.3rem; background:var(--panel); border-top:1px solid var(--line); }
+.layout-cards .items li::before { content:counter(card,decimal-leading-zero); display:block; color:var(--accent); font-size:.62em; letter-spacing:.1em; margin-bottom:.6rem; }
+.layout-split .items { list-style:none; padding:0; display:grid; grid-template-columns:1fr 1fr; gap:2rem; }
+.layout-split .items li { padding:1.3rem 0 0; border-top:4px solid var(--line); }
+.layout-split .items li:last-child { color:var(--accent); border-color:var(--accent); }
+.layout-steps .items { list-style:none; padding:0; counter-reset:step; display:grid; gap:.3rem; }
+.layout-steps .items li { counter-increment:step; display:grid; grid-template-columns:2em 1fr; border-bottom:1px solid var(--line); padding:.4rem 0 .7rem; }
+.layout-steps .items li::before { content:counter(step,decimal-leading-zero); color:var(--accent); font-weight:900; }
+.prompt-block { margin-top:1.3rem; background:#101713; border:1px solid #526454; }
+.prompt-head { display:flex; gap:1rem; align-items:center; justify-content:space-between; padding:.7rem 1rem; border-bottom:1px solid #526454; color:var(--accent); font-size:.8rem; }
+.copy-button { color:var(--paper); flex-shrink:0; }
+pre { margin:0; padding:1rem 1.3rem; white-space:pre-wrap; word-break:break-word; overflow-wrap:anywhere; font:clamp(16px,1.3vw,20px)/1.6 "Pretendard","Malgun Gothic",sans-serif; }
+.outcomes { display:grid; grid-template-columns:1fr 1fr; gap:1.3rem; margin-top:1.2rem; font-size:clamp(16px,1.25vw,20px); }
+.outcomes dt { color:var(--accent); font-size:.8em; font-weight:800; margin-bottom:.3rem; }
+.outcomes dd,.speaker-notes dd { margin:0; white-space:pre-line; }
+.sources { display:flex; flex-wrap:wrap; gap:.5rem 1.5rem; margin-top:1.5rem; padding-left:1.1rem; font-size:clamp(16px,1.2vw,19px); }
+.brief { margin-top:1.3rem; font-size:1rem; color:var(--muted); }
+summary { cursor:pointer; width:fit-content; }
+.brief h3 { font-size:1rem; margin-top:1rem; color:var(--paper); }
+.brief ul { padding-left:1.3rem; }
+.speaker-notes { margin-top:1.6rem; border-top:1px dashed var(--line); padding-top:1rem; color:var(--muted); font-size:1rem; }
+.speaker-notes dl { display:grid; grid-template-columns:7em 1fr; gap:.6rem 1rem; margin-top:.8rem; }
+.speaker-notes dt { color:var(--accent); font-weight:700; }
+.toolbar { display:flex; position:fixed; inset:auto 0 0; min-height:64px; padding:.6rem 1rem; align-items:center; justify-content:center; gap:.6rem; background:#101211; border-top:1px solid var(--line); z-index:5; }
+.enhanced .toolbar { display:flex!important; }
+.toolbar .counter { min-width:5.2rem; text-align:center; font-variant-numeric:tabular-nums; font-size:.9rem; }
+.progress { position:fixed; inset:0 0 auto; height:3px; z-index:8; }
+.progress span { display:block; height:100%; background:var(--accent); transform-origin:left; transform:scaleX(0); }
+.enhanced main { padding-bottom:82px; }
+.enhanced .slide { width:min(calc(100vw - 32px),calc((100dvh - 134px) * 16 / 9)); aspect-ratio:16/9; min-height:0; max-height:calc(100dvh - 134px); overflow:auto; margin-bottom:0; }
+.enhanced .slide.active { animation:enter .2s ease-out; }
+@keyframes enter { from { opacity:.3; transform:translateY(7px); } to { opacity:1; transform:translateY(0); } }
+.overlay { position:fixed; inset:0; z-index:10; background:#101211f5; padding:clamp(20px,4vw,60px); overflow:auto; }
+.overlay-head { display:flex; justify-content:space-between; align-items:center; gap:1rem; margin-bottom:2rem; }
+.overlay h2 { font-size:clamp(26px,3vw,44px); }
+.overview-list { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:1rem; padding:0; list-style:none; }
+.overview-list button { width:100%; min-height:120px; text-align:left; padding:1.3rem; }
+.overview-list button[aria-current="true"] { border-color:var(--accent); }
+.overview-list span { display:block; color:var(--muted); font-size:.8rem; margin-bottom:.6rem; }
+.overview-list strong { font-size:1.2rem; line-height:1.35; }
+.help-list { display:grid; grid-template-columns:max-content 1fr; gap:1rem 2rem; font-size:1.15rem; }
+.help-list dt { color:var(--accent); }.help-list dd { margin:0; }
+#copy-text { width:100%; min-height:50vh; margin:1rem 0; padding:1rem; background:var(--panel); color:var(--paper); border:1px solid var(--line); }
+.toast { position:fixed; bottom:80px; left:50%; transform:translateX(-50%); z-index:20; background:var(--paper); color:var(--ink); padding:.7rem 1.2rem; max-width:90vw; font-size:1rem; }
+.sr-only { position:absolute; width:1px; height:1px; padding:0; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; }
+@media (max-width:800px),(max-height:520px) {
+  .deck-header { padding:1rem; }.enhanced .slide { width:calc(100% - 20px); aspect-ratio:auto; min-height:calc(100dvh - 150px); max-height:none; padding:28px 22px; }
+  .layout-cards .items,.layout-split .items,.outcomes { grid-template-columns:1fr; gap:.8rem; }
+  .layout-hero h1,.layout-hero h2 { font-size:clamp(38px,9vw,64px); }
+  .toolbar { flex-wrap:wrap; gap:.35rem; }.toolbar button { font-size:.8rem; padding:.5rem .6rem; }
+  .prompt-head { align-items:flex-start; }.speaker-notes dl { grid-template-columns:1fr; gap:.4rem; }
+}
+@media (prefers-reduced-motion:reduce) { *,*::before,*::after { animation:none!important; transition:none!important; scroll-behavior:auto!important; } }
+@page { size:297mm 167mm; margin:8mm; }
+@media print {
+  :root { color-scheme:light; }body { background:white; color:#151515; }
+  .enhanced .js-only,.deck-header,.toolbar,.progress,.overlay,.toast,.speaker-notes,.copy-button,.brief { display:none!important; }
+  .enhanced main { padding:0; }.slide,.enhanced .slide,.slide[hidden] { display:block!important; width:100%; max-width:none; height:auto; min-height:146mm; max-height:none; aspect-ratio:auto; margin:0; padding:8mm; border:0; overflow:visible; break-after:page; break-inside:avoid; background:white; color:#151515; }
+  .slide:last-child { break-after:auto; }.slide { --accent:#27492f!important; --muted:#333; --panel:#f3f3ee; --line:#bbb; }
+  h1,h2 { font-size:28pt; }.layout-hero h1,.layout-hero h2 { font-size:40pt; }.message,.layout-hero .message,.items { font-size:16pt; color:#222; }
+  pre { font-size:11pt; }.prompt-block { background:#f4f5f1; }.outcomes,.sources { font-size:11pt; }.slide-meta { font-size:10pt; margin-bottom:7mm; }
+  a { color:#27492f; }.sources a::after { content:" (" attr(href) ")"; font-size:9pt; }.prompt-head { color:#27492f; }
+}
+</style>
+</head>
+<body>
+<div class="progress js-only" aria-hidden="true"><span id="progress"></span></div>
+<div class="deck-header"><span>{{TOPIC}}</span><span>{{DURATION}}분 워크숍</span></div>
+<main id="deck" aria-label="{{TITLE}}">
+{{SLIDES}}
+</main>
+<nav class="toolbar js-only" aria-label="발표 조작">
+  <button id="prev" type="button" aria-label="이전 슬라이드">←</button><span class="counter" id="counter"></span><button id="next" type="button" aria-label="다음 슬라이드">→</button>
+  <button id="overview-button" type="button">전체 보기 O</button><button id="notes-button" type="button" aria-pressed="false">노트 N</button><button id="fullscreen-button" type="button">전체 화면 F</button><button id="help-button" type="button" aria-label="단축키 도움말">?</button>
+</nav>
+<div id="overview" class="overlay" role="dialog" aria-modal="true" aria-labelledby="overview-title" hidden><div class="overlay-head"><h2 id="overview-title">전체 슬라이드</h2><button type="button" data-close>닫기 Esc</button></div><ol class="overview-list">{{OVERVIEW}}</ol></div>
+<div id="help" class="overlay" role="dialog" aria-modal="true" aria-labelledby="help-title" hidden><div class="overlay-head"><h2 id="help-title">발표 조작 안내</h2><button type="button" data-close>닫기 Esc</button></div><dl class="help-list"><dt>← → / Space</dt><dd>이전·다음 장 (Shift + Space: 이전)</dd><dt>Home / End</dt><dd>처음·마지막 장</dd><dt>O / N / F / ?</dt><dd>전체 보기 / 노트 / 전체 화면 / 도움말</dd><dt>Esc</dt><dd>열린 패널 닫기</dd><dt>좌우 스와이프</dt><dd>슬라이드 이동</dd><dt>브라우저 인쇄</dt><dd>노트를 제외한 전체 슬라이드 인쇄·PDF 저장</dd></dl><p style="margin-top:2rem">링크, 버튼, 프롬프트에 초점이 있거나 텍스트를 선택한 동안에는 슬라이드 이동 단축키가 작동하지 않습니다.</p></div>
+<div id="copy-dialog" class="overlay" role="dialog" aria-modal="true" aria-labelledby="copy-title" hidden><div class="overlay-head"><h2 id="copy-title">프롬프트를 직접 복사하세요</h2><button type="button" data-close>닫기 Esc</button></div><p>자동 복사가 허용되지 않았습니다. 선택된 내용을 Ctrl+C (Mac: ⌘C)로 복사하세요. 모바일에서는 길게 눌러 복사할 수 있습니다.</p><textarea id="copy-text" readonly aria-label="복사할 프롬프트"></textarea></div>
+<div id="toast" class="toast" role="status" hidden></div><p id="announcement" class="sr-only" aria-live="polite" aria-atomic="true"></p>
+<script>
+(() => {
+  'use strict';
+  const $ = id => document.getElementById(id);
+  const slides = [...document.querySelectorAll('.slide')], toolbar = document.querySelector('.toolbar');
+  let current = 0, notes = false, panel = null, previousFocus = null, toastTimer, touch = null;
+  const interactive = target => target instanceof Element && !!target.closest('a,button,input,textarea,select,summary,pre,[contenteditable],[role="button"]');
+  const selected = () => !!window.getSelection()?.toString();
+  function notify(message) {
+    clearTimeout(toastTimer); $('toast').textContent = message; $('toast').hidden = false;
+    toastTimer = setTimeout(() => { $('toast').hidden = true; }, 3000);
+  }
+  function hashIndex() {
+    const match = /^#(?:slide-)?([1-9]\d*)$/.exec(location.hash);
+    return match && Number(match[1]) <= slides.length ? Number(match[1]) - 1 : 0;
+  }
+  function show(index, writeHash = true, moveFocus = false) {
+    current = Math.max(0, Math.min(index, slides.length - 1));
+    slides.forEach((slide, i) => {
+      slide.hidden = i !== current; slide.inert = i !== current; slide.classList.toggle('active', i === current);
+      slide.querySelector('.speaker-notes').open = notes;
+    });
+    $('prev').disabled = current === 0; $('next').disabled = current === slides.length - 1;
+    $('counter').textContent = `${current + 1} / ${slides.length}`;
+    $('progress').style.transform = `scaleX(${(current + 1) / slides.length})`;
+    $('announcement').textContent = `${current + 1} / ${slides.length}: ${slides[current].querySelector('h1,h2').textContent}`;
+    document.querySelectorAll('[data-go]').forEach(button => button.setAttribute('aria-current', String(Number(button.dataset.go) === current)));
+    if (writeHash && location.hash !== `#${current + 1}`) history.pushState(null, '', `#${current + 1}`);
+    if (moveFocus) slides[current].focus({ preventScroll:true });
+  }
+  function closePanel() {
+    if (!panel) return;
+    panel.hidden = true; panel = null; $('deck').inert = false; toolbar.inert = false;
+    if (previousFocus?.isConnected && !previousFocus.closest('[hidden]')) previousFocus.focus({ preventScroll:true });
+    else slides[current].focus({ preventScroll:true });
+  }
+  function openPanel(id) {
+    if (panel) closePanel();
+    previousFocus = document.activeElement; panel = $(id); panel.hidden = false;
+    $('deck').inert = true; toolbar.inert = true;
+    panel.querySelector('[aria-current="true"],button,textarea').focus({ preventScroll:true });
+  }
+  function toggleNotes() {
+    notes = !notes; $('notes-button').setAttribute('aria-pressed', String(notes));
+    slides.forEach(slide => { slide.querySelector('.speaker-notes').open = notes; });
+  }
+  async function fullscreen() {
+    try {
+      if (document.fullscreenElement) await document.exitFullscreen();
+      else if (document.documentElement.requestFullscreen) await document.documentElement.requestFullscreen();
+      else notify('이 브라우저에서는 전체 화면 버튼을 지원하지 않습니다. 브라우저 전체 화면 기능을 이용하세요.');
+    } catch { notify('전체 화면을 열지 못했습니다. 브라우저 전체 화면 기능을 이용하세요.'); }
+  }
+  async function copy(button) {
+    const value = $(button.dataset.copy).textContent;
+    try {
+      if (!navigator.clipboard?.writeText) throw new Error('Clipboard unavailable');
+      await navigator.clipboard.writeText(value); notify('프롬프트를 복사했습니다.');
+    } catch {
+      openPanel('copy-dialog'); $('copy-text').value = value; $('copy-text').focus(); $('copy-text').select();
+    }
+  }
+  $('prev').addEventListener('click', () => show(current - 1));
+  $('next').addEventListener('click', () => show(current + 1));
+  $('overview-button').addEventListener('click', () => openPanel('overview'));
+  $('help-button').addEventListener('click', () => openPanel('help'));
+  $('notes-button').addEventListener('click', toggleNotes);
+  $('fullscreen-button').addEventListener('click', fullscreen);
+  document.querySelectorAll('[data-close]').forEach(button => button.addEventListener('click', closePanel));
+  document.querySelectorAll('[data-go]').forEach(button => button.addEventListener('click', () => { closePanel(); show(Number(button.dataset.go), true, true); }));
+  document.querySelectorAll('[data-copy]').forEach(button => button.addEventListener('click', () => copy(button)));
+  window.addEventListener('hashchange', () => show(hashIndex(), false));
+  window.addEventListener('popstate', () => show(hashIndex(), false));
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && panel) { event.preventDefault(); closePanel(); return; }
+    if (panel) {
+      if (event.key === 'Tab') {
+        const focusable = [...panel.querySelectorAll('button,a[href],textarea,[tabindex="0"]')];
+        const first = focusable[0], last = focusable[focusable.length - 1];
+        if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+        else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+      }
+      return;
+    }
+    if (event.ctrlKey || event.metaKey || event.altKey || interactive(event.target) || selected()) return;
+    const key = event.key.toLowerCase();
+    if (['arrowright','arrowdown','arrowleft','arrowup',' ','home','end','o','n','f','?'].includes(key)) event.preventDefault();
+    if (key === 'arrowright' || key === 'arrowdown' || (key === ' ' && !event.shiftKey)) show(current + 1, true, true);
+    if (key === 'arrowleft' || key === 'arrowup' || (key === ' ' && event.shiftKey)) show(current - 1, true, true);
+    if (key === 'home') show(0, true, true);
+    if (key === 'end') show(slides.length - 1, true, true);
+    if (key === 'o') openPanel('overview');
+    if (key === 'n') toggleNotes();
+    if (key === 'f') fullscreen();
+    if (key === '?') openPanel('help');
+  });
+  $('deck').addEventListener('touchstart', event => {
+    touch = event.touches.length === 1 && !interactive(event.target) && !selected() ? { x:event.touches[0].clientX, y:event.touches[0].clientY } : null;
+  }, { passive:true });
+  $('deck').addEventListener('touchend', event => {
+    if (!touch || panel || selected() || !event.changedTouches.length) return;
+    const dx = event.changedTouches[0].clientX - touch.x, dy = event.changedTouches[0].clientY - touch.y; touch = null;
+    if (Math.abs(dx) > 70 && Math.abs(dx) > Math.abs(dy) * 1.5) show(current + (dx < 0 ? 1 : -1), true, true);
+  }, { passive:true });
+  $('deck').addEventListener('touchcancel', () => { touch = null; }, { passive:true });
+  document.documentElement.classList.add('enhanced');
+  show(hashIndex(), false);
+})();
+</script>
+</body>
+</html>
