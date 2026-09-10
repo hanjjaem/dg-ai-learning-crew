@@ -4,6 +4,13 @@
 
 본 프로젝트는 동구청 공무원 AI 러닝크루 2기를 위한 전용 웹 서비스로, 1일 1프롬프트 인증과 AI 산출물(이미지, 인터랙티브 HTML 웹 위젯)을 지식 자산으로 축적하고 공유하는 데스크톱 우선(Desktop-First) 와이드 대시보드입니다.
 
+### 🎤 교육용 발표자료 바로 열기
+
+> ## ▶️ [https://hanjjaem.github.io/dg-ai-learning-crew/](https://hanjjaem.github.io/dg-ai-learning-crew/)
+>
+> **AI에게 맡기고, Git으로 이어간다** · 새 PC에서 Clone부터 Push, 다른 PC의 Pull까지 (21장)
+> 설치나 다운로드 없이 위 주소를 열면 바로 발표가 시작됩니다.
+
 ---
 
 ## ✨ 핵심 기능
@@ -49,14 +56,21 @@ npm run dev
 
 ## 🎤 교육용 웹 발표자료
 
-**AI에게 맡기고, Git으로 이어간다** 워크숍 발표자료는 루트의
-[`agent-git-workshop.html`](./agent-git-workshop.html) 파일을 브라우저에서 열어 실행합니다.
+**AI에게 맡기고, Git으로 이어간다** — AI 에이전트에게 저장소 인수인계와 개발을 맡기고, 사람이 검증해 GitHub에 남기는 과정을 다루는 75분 워크숍용 21장 발표자료입니다.
+
+**발표 주소**: [https://hanjjaem.github.io/dg-ai-learning-crew/](https://hanjjaem.github.io/dg-ai-learning-crew/)
+
+인터넷이 불안한 교육장에서는 저장소 루트의 `agent-git-workshop.html` 파일 하나만 내려받아 더블클릭해도 동일하게 동작합니다. (자체 완결형 단일 HTML)
+
+**발표 중 조작**
 
 * `←` `→` 또는 `Space`: 슬라이드 이동
 * `O`: 전체 슬라이드 보기
 * `N`: 발표자 노트
 * `F`: 전체화면
 * `?`: 단축키 도움말
+
+각 실습 슬라이드에는 **프롬프트 복사** 버튼이 있어, 수강생이 바로 붙여넣어 실습할 수 있습니다.
 
 ---
 
