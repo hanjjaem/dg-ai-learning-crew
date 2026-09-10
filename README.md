@@ -47,6 +47,19 @@ npm run dev
 
 ---
 
+## 🎤 교육용 웹 발표자료
+
+**AI에게 맡기고, Git으로 이어간다** 워크숍 발표자료는 루트의
+[`agent-git-workshop.html`](./agent-git-workshop.html) 파일을 브라우저에서 열어 실행합니다.
+
+* `←` `→` 또는 `Space`: 슬라이드 이동
+* `O`: 전체 슬라이드 보기
+* `N`: 발표자 노트
+* `F`: 전체화면
+* `?`: 단축키 도움말
+
+---
+
 ## 🗄️ Supabase 데이터베이스 구축
 
 1. [Supabase Dashboard](https://supabase.com/dashboard) 로그인 ➡️ 프로젝트 선택
