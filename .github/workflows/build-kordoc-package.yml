@@ -1,0 +1,57 @@
+name: Build KorDoc integrated installer package
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/build-kordoc-package.yml'
+      - 'public/downloads/kordoc/**'
+
+permissions:
+  contents: write
+
+jobs:
+  build-release:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Prepare package directory
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force -Path package | Out-Null
+          Copy-Item 'public/downloads/kordoc/1_설치하기(더블클릭).bat' 'package/1_설치하기(더블클릭).bat'
+          Copy-Item 'public/downloads/kordoc/2_제품안내서_열어보기.html' 'package/2_제품안내서_열어보기.html'
+
+      - name: Download official KorDoc AI v1.5.1 MSI
+        shell: pwsh
+        run: |
+          $url = 'https://github.com/chrisryugj/kordoc-ai/releases/download/v1.5.1/KorDoc.AI_1.5.1_x64_ko-KR.msi'
+          Invoke-WebRequest -Uri $url -OutFile 'package/KorDoc.AI_1.5.1_x64_ko-KR.msi'
+          if (-not (Test-Path 'package/KorDoc.AI_1.5.1_x64_ko-KR.msi')) { throw 'KorDoc MSI download failed' }
+
+      - name: Create integrated ZIP
+        shell: pwsh
+        run: |
+          Compress-Archive -Path 'package/*' -DestinationPath 'KorDoc_통합설치_패키지.zip' -Force
+          Get-Item 'KorDoc_통합설치_패키지.zip' | Format-List Name,Length
+
+      - name: Publish GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: kordoc-package-v1.5.1
+          name: KorDoc AI 통합설치 패키지 v1.5.1
+          body: |
+            AI 러닝크루 실습용 KorDoc AI 통합설치 패키지입니다.
+
+            구성 파일:
+            - 1_설치하기(더블클릭).bat
+            - 2_제품안내서_열어보기.html
+            - KorDoc.AI_1.5.1_x64_ko-KR.msi
+
+            인터넷 연결 PC에서는 BAT 파일이 필요한 구성요소를 자동 설치하며,
+            인터넷 제한 PC에서는 ZIP 안의 MSI를 이용해 오프라인 설치할 수 있습니다.
+          files: KorDoc_통합설치_패키지.zip
+          overwrite_files: true
